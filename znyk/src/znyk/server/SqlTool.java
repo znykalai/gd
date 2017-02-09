@@ -147,4 +147,53 @@ public class SqlTool {
                   return "记录更新成功！";
 
     }  
+    
+    public static String update7Line(String tp,String fromID,String toID)  {
+	       ConnactionPool p=ConnactionPool.getPool();
+           Conn conn=p.getCon2("");
+
+          Statement st=null;
+          Connection con=conn.getCon();
+     try{
+            st=con.createStatement();
+            con.setAutoCommit(false);
+            String sql1="update 货位表     set 托盘编号='' where 货位序号="+"'"+fromID+"'";
+            String sql2="update 货位表     set 托盘编号='"+tp+"' where 货位序号="+"'"+toID+"'";
+            String sql3="update 库存托盘  set 货位号="+toID+" where 托盘编号="+"'"+tp+"'";
+           
+            st.executeUpdate(sql1);
+            st.executeUpdate(sql2);
+            st.executeUpdate(sql3);
+
+
+           con.commit();
+           con.setAutoCommit(true);
+           st.close();
+           conn.realseCon();
+      }catch(Exception ex){ ex.printStackTrace();
+         try {
+             con.rollback();
+             con.setAutoCommit(true);
+             st.close();
+             conn.realseCon();
+              return ex.getMessage();
+           } catch (SQLException ex1) {
+               ex1.printStackTrace() ;
+               conn.realseCon();
+              return ex1.getMessage();
+           }
+
+        }
+           conn.realseCon();
+
+
+           return "记录更新成功！";
+
+}  
+    
+    public void add动作指令(){
+      	
+    	
+    }
+    
 }

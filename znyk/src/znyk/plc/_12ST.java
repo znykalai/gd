@@ -74,6 +74,17 @@ public class _12ST extends ST_Father implements STInterface {
 	     数据更新完成=((_12ST)st).is数据更新完成();
 	 
  }
+	 @Override
+	 public boolean isChange(){
+		 if(old==null){
+			 old=new _12ST(plc, machineID,startAddress);
+			 return true;
+			 
+		 }else{
+			 if(this.boolContent!=old.getBoolContent()||!this.getName().equals(old.getName())){return true;} 
+			 
+		 }
+		 return false;}
 
 	@Override
 	public int getLength() {

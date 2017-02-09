@@ -15,14 +15,18 @@ public class ST_Father implements STInterface, Serializable{
 	protected String startGD="D11001";//光大写入的地址
 	protected int id;
 	protected boolean write;
-	//工单号+模组序ID+分解号+载具序号,这三个也决定了唯一的载具
+	//工单号ID+模组序ID+分解号+载具序号,这三个也决定了唯一的载具
 	protected int 工单号;
 	protected int 工单ID;
 	protected int 模组序ID;
-	protected int 分解号;
+	protected int 分解号;//模组号
 	protected int 载具序号;
 	public Hashtable table=new Hashtable();
-	
+	protected ST_Father old;
+	public String getName(){
+		
+		return 工单ID+""+模组序ID+""+分解号+""+载具序号+""+id;
+	}
 	public int get模组序ID() {
 		return 模组序ID;
 	}
@@ -42,6 +46,7 @@ public class ST_Father implements STInterface, Serializable{
 	public int getId() {
 		return id;
 	}
+	
 
 	public void setId(int id) {
 		this.id = id;
@@ -101,6 +106,9 @@ public class ST_Father implements STInterface, Serializable{
 		
 		 
 	 }
+	 
+	
+	 public boolean isChange(){return false;}
 
 	@Override
 	public int getLength() {
@@ -117,6 +125,21 @@ public class ST_Father implements STInterface, Serializable{
 	@Override
 	public String writeToPLC() {
 		// TODO Auto-generated method stub
+		return "成功";
+	}
+	
+	public String writeifChangeToPLC(){
+		if(this.isChange()){
+		String back=writeToPLC();
+		if(back!=null){
+			if(back.equals("成功")){
+				System.out.println("00000");
+				old.intFromST(this);
+			}
+		}
+		
+		}
+		
 		return null;
 	}
 

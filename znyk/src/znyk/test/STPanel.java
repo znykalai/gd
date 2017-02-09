@@ -296,10 +296,12 @@ public class STPanel extends JPanel {
 		try{
 		 Field f2[]=RS.getClass().getDeclaredFields();
 		 for(int i=0;i<f2.length;i++){
-			 
-			 Vector row=new Vector();
+			
+			   
 				String name=f2[i].getName();
 				
+				if(name.equals("serialVersionUID"))continue;
+				 Vector row=new Vector();
 				if(name.contains("bool"))continue;
 				Object ty=f2[i].getType();
 				row.addElement(name);
@@ -319,7 +321,7 @@ public class STPanel extends JPanel {
            mode.addRow(row);
          	  
 		 }
-			 }catch(Exception ee){}
+			 }catch(Exception ee){ee.printStackTrace();}
 	}
 
 }

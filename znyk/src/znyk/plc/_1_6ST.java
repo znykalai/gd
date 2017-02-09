@@ -98,6 +98,22 @@ public class _1_6ST extends ST_Father implements STInterface {
 		     数据更新完成=((_1_6ST)st).is数据更新完成();
 		     完成数量=((_1_6ST)st).get完成数量();
 	 }
+	 
+	 @Override
+	 public boolean isChange(){
+		
+		 if(old==null){
+			 
+			 old=new _1_6ST(plc, machineID,startAddress);
+			 return true;
+			 
+		 }else{
+			if(this.boolContent!=old.getBoolContent()||!this.getName().equals(old.getName())){
+				
+				return true;} 
+			 
+		 }
+		 return false;}
 
 	@Override
 	public int getLength() {

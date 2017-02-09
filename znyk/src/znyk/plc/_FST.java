@@ -67,6 +67,18 @@ public class _FST extends ST_Father implements STInterface {
 		 数据更新完=((_FST)st).is数据更新完();
 	 
 }
+    @Override
+	 public boolean isChange(){
+		 if(old==null){
+			 old=new _FST(plc, machineID,startAddress);
+			 return true;
+			 
+		 }else{
+			 if(this.boolContent!=old.getBoolContent()||!this.getName().equals(old.getName())){return true;} 
+			 
+		 }
+		 return false;}
+
     public void clear(){
     	 boolContent=0;
     	 允许工位动作标志=false;

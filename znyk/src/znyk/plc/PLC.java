@@ -12,13 +12,16 @@ import java.util.Vector;
 import GDT.Inint;
 import GDT.Resint;
 import localhost.GD_wsdl.GDLocator;
+import znyk.server.SqlTool;
 
 public class PLC implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	GDLocator gd =new GDLocator();
+	public boolean stop1=false;
+	public boolean stop2=false;
+	public GDLocator gd =new GDLocator();
 	public Vector<STContent> STC1=new Vector<STContent>();
 	public Vector<STContent> STC2=new Vector<STContent>();
 	public CarryLine line=new CarryLine(this);
@@ -143,6 +146,12 @@ public class PLC implements Serializable {
 			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
 			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
 			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
+			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),new ReST(new Resint()),
+			//第2个缓存队列
+			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
+			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
+			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
+			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
 			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),new ReST(new Resint())
 	};
 	
@@ -151,8 +160,17 @@ public class PLC implements Serializable {
 			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
 			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
 			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
+			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),new ReST(new Resint()),
+			//第2个缓存队列
+			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
+			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
+			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
+			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),
 			new ReST(new Resint()), new ReST(new Resint()),new ReST(new Resint()),new ReST(new Resint())
 	};
+	
+	public int[]gw1=new int[]{502,504,506,508,510,512,514};
+	public int[]gw2=new int[]{602,604,606,608,610,612,614};
 	
 	private  PLC(){
 		  PLC pp=readO();
@@ -346,10 +364,12 @@ public class PLC implements Serializable {
 		
 	}
 	
+	
+	//读取光大的状态，并更新托盘数量
     public ReST[] getFromPLC1(){
     	try{
     		Resint r[]=	gd.getGD().getSirIntValuesFromCTR("D11001", 63, 16, 1);
-    		ReST[] back=new ReST[16];
+    		
     		for(int i=0;i<16;i++){
     			Resint bint=r[i*2];
     			int tem1=bint.getResInt();
@@ -361,12 +381,14 @@ public class PLC implements Serializable {
     			RST[i]=new ReST(bint);
     			if(取料完成1!=取料完成2){
     				//更新托盘的物料数量
+    				if(取料完成1==1)
     				STC1.get(i).updataDB(STC2.get(i).firstST);//更新托盘的数量
     				
     			}
     			
     			if(载具放行1!=载具放行2){
     				//更新托盘位置，同时把write置成false,
+    				if(载具放行1==1){
     				if(i<15){
     				  line.removeToNext(i);
     			       }
@@ -374,19 +396,38 @@ public class PLC implements Serializable {
     				STC1.get(i).firstST.setWrite(false);
     				//更新到PLC
     				//STC1.get(i).firstST.writeToPLC();
-    				
+    				}
     			}
     			
     		}
+    		
+    		for(int i=16;i<32;i++){
+    			Resint bint=r[i*2];
+    			int tem1=bint.getResInt();
+    			int tem2=RST[i].boolCont.getResInt();
+    		    int 取料完成1=tem1&0b10;
+    			int 取料完成2=tem2&0b10;
+    			RST[i]=new ReST(bint);
+    			if(取料完成1!=取料完成2){
+    				//更新托盘的物料数量
+    				if(取料完成1==1)
+    				STC1.get(i).updataDB(STC2.get(i).secondST);//更新托盘的数量
+    				
+    			}
+    			
+    			
+    		}
+    	
     	
     	}catch(Exception ex){}
     	return null;
     }
     
+  //读取光大的状态，并更新托盘数量
     public ReST[] getFromPLC2(){
     	try{
     		Resint r[]=	gd.getGD().getSirIntValuesFromCTR("D11001", 63, 16, 2);
-    		ReST[] back=new ReST[16];
+    		
     		for(int i=0;i<16;i++){
     			Resint bint=r[i*2];
     			int tem1=bint.getResInt();
@@ -399,32 +440,53 @@ public class PLC implements Serializable {
     			
     			if(取料完成1!=取料完成2){
     				//更新托盘的物料数量
+    				if(取料完成1==1)
     				STC2.get(i).updataDB(STC2.get(i).firstST);//更新托盘的数量
     				
     			}
     			
     			if(载具放行1!=载具放行2){
     				//更新托盘位置，同时把write置成false
+    				if(载具放行1==1){
     				if(i<15){
     				line2.removeToNext(i);
     				}
-    				
+    				//指令队列是已载具为单位的，所以载具移动后，本工位对应的队列也的移动。
     				STC2.get(i).firstST.setWrite(false);
+    				}
     				//更新到PLC
     				//STC2.get(i).firstST.writeToPLC();
     				
     			}
     			
     		}
+    		
+    		for(int i=16;i<32;i++){
+    			Resint bint=r[i*2];
+    			int tem1=bint.getResInt();
+    			int tem2=RST2[i].boolCont.getResInt();
+    		    int 取料完成1=tem1&0b10;
+    			int 取料完成2=tem2&0b10;
+    			RST2[i]=new ReST(bint);
+    			if(取料完成1!=取料完成2){
+    				//更新托盘的物料数量
+    				if(取料完成1==1)
+    				STC2.get(i).updataDB(STC2.get(i).secondST);//更新托盘的数量
+    				
+    			}
+    			
+    			
+    		}
+    	
     	
     	}catch(Exception ex){}
     	return null;
     }
     
-	public void set动作(int s){
-	   //  ReST rs=RST[s];
+	/*public void set动作(int s){
+	    //  ReST rs=RST[s];
 		
-	  }
+	  }*/
 	
 	public  static void main(String ss[]){
 		
@@ -445,7 +507,7 @@ public class PLC implements Serializable {
 //		   
 //	   }
 	   
-	   return null;
+	   return "成功";
    }
    
    public String writeRandomToBLC(String[] startAddress,int[]val, int machineID){
@@ -469,8 +531,145 @@ public class PLC implements Serializable {
 	   
 	   return null;
    }
+   //如果立库没准备好，那么要做两件事，1，如果工位上有托盘，那么就是这个托盘的物料不是指令要取的物料，或者数量不够，这时候要让托盘走，调用一个新的托盘；要是没有托盘那么就调新的托盘来
    public boolean getSTRdy(int line,int st){
-	    return true;
+	 
+	   if(st>=2&&st<=7){
+		  String tem2=null;
+		  STContent cot= STC1.get(st-1);
+		  if(line==1){
+			  tem2=SqlTool.findOneRecord("select  托盘编号,物料,数量  from 库存托盘   where  货位号='"+gw1[st-2]+"'"); 
+			  cot= STC1.get(st-1);
+		  }else{
+			  tem2=SqlTool.findOneRecord("select  托盘编号,物料,数量  from 库存托盘   where  货位号='"+gw2[st-2]+"'"); 
+			  cot= STC2.get(st-1);  
+			  
+		  }
+		  
+		  if(tem2==null){//没有托盘的情况
+			  return false;}
+		 
+		  else{
+			  String sm[]=tem2.split("!_!");
+			  int tpshul=Integer.parseInt(sm[2]);
+		      
+		       int id=((_1_6ST)cot.firstST).id;
+		       int id2=((_1_6ST)cot.secondST).id;
+               boolean re=((_1_6ST)cot.firstST).is立库RDY();
+		       boolean re2=((_1_6ST)cot.secondST).is立库RDY();
+		       int 需求数量=((_1_6ST)cot.firstST).get需求数量();
+			   int 完成数量=((_1_6ST)cot.firstST).get完成数量();
+			   if(需求数量!=完成数量){
+				   //如果第一个队列还没取完，那就判断第一个队列
+		       
+		       String tem=SqlTool.findOneRecord("select  物料,数量  from 配方指令队列   where  ID='"+id+"'");
+		       if(sm[1].equals(tem.split("!_!")[0])){
+		    	   if(需求数量-完成数量>tpshul){
+					   //叫托盘回流
+					   return false;
+					   }else{return true;}
+		    	   
+		       }else{
+		    	      //叫托盘回流  
+		    	 return false;  
+		       }
+		    }
+			   else{
+				     //如果第一个队列取完了，才判断第二个队列	   
+				   String tem=SqlTool.findOneRecord("select  物料,数量  from 配方指令队列   where  ID='"+id2+"'");
+				   if(sm[1].equals(tem.split("!_!")[0])){
+					   int 需求数量2=((_1_6ST)cot.secondST).get需求数量();
+					   int 完成数量2=((_1_6ST)cot.secondST).get完成数量();
+					   if(需求数量2-完成数量2>tpshul){
+						   //叫托盘回流
+						   return false;
+						   }else{return true;}
+					   
+				   }
+				        else{
+			    	      //叫托盘回流  
+				    	 return false;  
+				       }
+				   
+			   }
+		       
+		       
+		  } 
+		   
+	   }
+	   
+	   
+	   if(st==8){//只要托盘有数量且物料相当就能返回TRUE
+			 
+			  String tem2=null;
+			  STContent cot= STC1.get(st-1);
+			  if(line==1){
+				  tem2=SqlTool.findOneRecord("select  托盘编号,物料,数量  from 库存托盘   where  货位号='"+gw1[st-2]+"'"); 
+				  cot= STC1.get(st-1);
+			  }else{
+				  tem2=SqlTool.findOneRecord("select  托盘编号,物料,数量  from 库存托盘   where  货位号='"+gw2[st-2]+"'"); 
+				  cot= STC2.get(st-1);  
+				  
+			  }
+			  if(tem2==null){//没有托盘的情况
+				  return false;}
+			 
+			  else{
+				  String sm[]=tem2.split("!_!");
+				   int tpshul=Integer.parseInt(sm[2]);
+			       int id=((_7ST)cot.firstST).id;
+			       int id2=((_7ST)cot.secondST).id;
+	               boolean re=((_7ST)cot.firstST).is立库RDY();
+			       boolean re2=((_7ST)cot.secondST).is立库RDY();
+			       int 需求数量=((_7ST)cot.firstST).get需求数量();
+				   int 完成数量=((_7ST)cot.firstST).get完成数量();
+				   if(需求数量!=完成数量){
+					   //如果第一个队列还没取完，那就判断第一个队列
+			       
+			       String tem=SqlTool.findOneRecord("select  物料,数量  from 配方指令队列   where  ID='"+id+"'");
+			       if(sm[1].equals(tem.split("!_!")[0])){
+			    	   if(tpshul>0){
+						   //叫托盘回流
+						   return false;
+						   }else{return true;}
+			    	   
+			       }else{
+			    	      //叫托盘回流  
+			    	 return false;  
+			       }
+			    }
+				   else{
+					     //如果第一个队列取完了，才判断第二个队列	   
+					   String tem=SqlTool.findOneRecord("select  物料,数量  from 配方指令队列   where  ID='"+id2+"'");
+					   if(sm[1].equals(tem.split("!_!")[0])){
+						   int 需求数量2=((_7ST)cot.secondST).get需求数量();
+						   int 完成数量2=((_7ST)cot.secondST).get完成数量();
+						   if(tpshul>0){
+							   //叫托盘回流
+							   return false;
+							   }else{return true;}
+						   
+					   }
+					        else{
+				    	      //叫托盘回流  
+					    	 return false;  
+					       }
+					   
+				   }
+			       
+			       
+			  } 
+			      
+		   
+	   }
+	   
+	 
+	   
+	   
+	    
+	     return true;
 	   
    }
+   
+   
 }

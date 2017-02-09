@@ -146,6 +146,18 @@ public class _9ST extends ST_Father implements STInterface {
    	
 	 
  }
+	 @Override
+	 public boolean isChange(){
+		 if(old==null){
+			 old=new _9ST(plc, machineID,startAddress);
+			 return true;
+			 
+		 }else{
+			 if(this.boolContent!=old.getBoolContent()||!this.getName().equals(old.getName())){return true;} 
+			 
+		 }
+		 return false;}
+
 	 public void clear(){
 	    	boolContent=0;
 	    	 允许工位动作标志=false;

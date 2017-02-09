@@ -37,6 +37,31 @@ public class STContent implements Serializable {
    
   
     public void initFromSql(){
+    	if(plc.stop1){//不再重数据库里面读数了，单是不影响搬运机构的继续执行
+    		if(装配区==1){
+    			if(stNum==1){ 
+    				 firstST.writeifChangeToPLC();
+    		    	 secondST.writeifChangeToPLC();
+    				return;}	
+    			if(stNum>=2&&stNum<=8){
+    				updata动作();
+    				return;}
+    			
+    		}
+    	}
+    	if(plc.stop2){
+    		if(装配区==1){
+    			if(stNum==1){
+    				 firstST.writeifChangeToPLC();
+    		    	 secondST.writeifChangeToPLC();
+    				return;}	
+    			if(stNum>=2&&stNum<=8){
+    				updata动作();
+    				return;}
+    			
+    		}
+    	}
+    	
     	if(stNum==1){
          //前升降台,按工单号+分解号+模组编码（模组号）来分类汇总载具，按载具序号排序
     	//从数据库读取成功后,"前升降机读取标志=1",系统不从启前是不会在从新读取，接受到载具放行后，把这个标志更新为2表示完成，以后再也不会从数据库中读取
@@ -47,7 +72,7 @@ public class STContent implements Serializable {
     		//工单ID+模组序ID+分解号+载具序号,这4个也决定了唯一的载具
     		
     	 Vector<Vector> tem=SqlTool.findInVector("select  ID,工单序号,分解号,载具序号,pack编码,模组编码,物料,数量,翻面否,工位,工单ID,模组序ID,IFNULL(假电芯1,0),IFNULL(假电芯2,0),电芯位置1,电芯位置2,电芯位置3,电芯位置4,IFNULL(叠装否,'否'),模组类型,电芯类型  ,COUNT(DISTINCT 工单序号,模组序ID,分解号,载具序号 )  from 配方指令队列   where  装配区="+装配区+" and IFNULL(前升读标志,0)<>1 GROUP BY 工单序号,分解号,载具序号   ORDER BY 工单序号,模组序号,分解号,载具序号 LIMIT 10");
-    	 System.out.println(tem);	
+    	 //System.out.println(tem);	
     	 if(tem.size()>1){
     	 		 Vector row=(Vector)tem.get(0);
     	 		 Vector row2=(Vector)tem.get(1);
@@ -757,6 +782,11 @@ public class STContent implements Serializable {
     		 }
      		  
   	      }
+    	 
+    	 
+    	 firstST.writeifChangeToPLC();
+    	 secondST.writeifChangeToPLC();
+    	 
     	
     }
     
@@ -779,7 +809,7 @@ public class STContent implements Serializable {
 		    		 ( (_7ST)firstST).set允许工位动作标志(true);
     				 if(firstST instanceof _9ST ){
 			    	 ( (_9ST)firstST).set允许工位动作标志(true);
-			    	 System.out.println("_______________");
+			    	
     				 }
     			   
 			    }
@@ -802,7 +832,7 @@ public class STContent implements Serializable {
 					  
 				  }
 			  }
-			
+			firstST.writeifChangeToPLC();
 		}
 		
 		//更新第二个工位动作容许标志
@@ -825,18 +855,20 @@ public class STContent implements Serializable {
 				 }
 			    }
 			  }
-			
+			secondST.writeifChangeToPLC();
 		}
     }
+    
+    
     
     private boolean updataSTDB(int 货位, ST_Father st){
     	if(stNum<2||stNum>8){return false;}
     	if(stNum>=2&&stNum<=7){
-  	  String tem=SqlTool.findOneRecord("select  物料,数量  from 配方指令队列   where  ID="+st.getId()+"'");
+  	  String tem=SqlTool.findOneRecord("select  物料,数量  from 配方指令队列   where  ID='"+st.getId()+"'");
   	  if(tem!=null){
   		String wuliao=tem.split("!_!")[0];
   		int shul=Integer.parseInt(tem.split("!_!")[1]);
-  		String tem2=SqlTool.findOneRecord("select  托盘编号,物料,数量  from 库存托盘   where  货位号="+货位+"'");
+  		String tem2=SqlTool.findOneRecord("select  托盘编号,物料,数量  from 库存托盘   where  货位号='"+货位+"'");
   		
   		if(tem2!=null){
   			String tp=tem2.split("!_!")[0];
@@ -848,6 +880,7 @@ public class STContent implements Serializable {
   			   int 需求数量=((_1_6ST)st).get需求数量();
   			   int 完成数量=((_1_6ST)st).get完成数量();
   			   int fshul=需求数量-完成数量;
+  			   
   			   if(shul2>=fshul){
   				   String sql="update 库存托盘 set 数量="+(shul2-fshul)+" where 托盘编号="+"'"+tp+"'";
   				   String sql2="update 配方指令队列  set 完成数量="+(完成数量+fshul)+" where ID="+"'"+st.getId()+"'";
@@ -856,11 +889,12 @@ public class STContent implements Serializable {
   				   ((_1_6ST)st).set完成数量(完成数量+fshul);
   				    return true;
   			   }else{
-  				  String sql="update 库存托盘 set 数量="+0+" where 托盘编号="+"'"+tp+"'";
+  				 /* String sql="update 库存托盘 set 数量="+0+" where 托盘编号="+"'"+tp+"'";
   				  String sql2="update 配方指令队列  set 完成数量="+(完成数量+shul2)+" where ID="+"'"+st.getId()+"'";
   				  SqlTool.insert(new String[]{sql});
   				  SqlTool.insert(new String[]{sql2});
-  				   ((_1_6ST)st).set完成数量(完成数量+shul2);
+  				   ((_1_6ST)st).set完成数量(完成数量+shul2);*/
+  				   //当需求大于这个托盘的现有量时，不更新数量，托盘应该走
   				    return false;  
   				   
   			   }
@@ -871,12 +905,12 @@ public class STContent implements Serializable {
   	  }
   	  }
     	
-    	if(stNum==8){
-    		 String tem=SqlTool.findOneRecord("select  物料,数量  from 配方指令队列   where  ID="+st.getId()+"'");
+    	if(stNum==8){//电芯的数量一次只能取一个
+    		 String tem=SqlTool.findOneRecord("select  物料,数量  from 配方指令队列   where  ID='"+st.getId()+"'");
     	  	  if(tem!=null){
     	  		String wuliao=tem.split("!_!")[0];
     	  		int shul=Integer.parseInt(tem.split("!_!")[1]);
-    	  		String tem2=SqlTool.findOneRecord("select  托盘编号,物料,数量  from 库存托盘   where  货位号="+货位+"'");
+    	  		String tem2=SqlTool.findOneRecord("select  托盘编号,物料,数量  from 库存托盘   where  货位号='"+货位+"'");
     	  		
     	  		if(tem2!=null){
     	  			String tp=tem2.split("!_!")[0];
@@ -888,19 +922,20 @@ public class STContent implements Serializable {
     	  			   int 需求数量=((_7ST)st).get需求数量();
     	  			   int 完成数量=((_7ST)st).get完成数量();
     	  			   int fshul=需求数量-完成数量;
-    	  			   if(shul2>=fshul){
-    	  				   String sql="update 库存托盘 set 数量="+(shul2-fshul)+" where 托盘编号="+"'"+tp+"'";
-    	  				   String sql2="update 配方指令队列  set 完成数量="+(完成数量+fshul)+" where ID="+"'"+st.getId()+"'";
+    	  			   if(shul2>=1){
+    	  				   String sql="update 库存托盘 set 数量="+(shul2-1)+" where 托盘编号="+"'"+tp+"'";
+    	  				   String sql2="update 配方指令队列  set 完成数量="+(完成数量+1)+" where ID="+"'"+st.getId()+"'";
     	  				   SqlTool.insert(new String[]{sql});
     	  				   SqlTool.insert(new String[]{sql2});
-    	  				   ((_7ST)st).set完成数量(完成数量+fshul);
+    	  				   ((_7ST)st).set完成数量(完成数量+1);
     	  				    return true;
     	  			   }else{
-    	  				  String sql="update 库存托盘 set 数量="+0+" where 托盘编号="+"'"+tp+"'";
+    	  				  /*String sql="update 库存托盘 set 数量="+0+" where 托盘编号="+"'"+tp+"'";
     	  				  String sql2="update 配方指令队列  set 完成数量="+(完成数量+shul2)+" where ID="+"'"+st.getId()+"'";
     	  				  SqlTool.insert(new String[]{sql});
     	  				  SqlTool.insert(new String[]{sql2});
-    	  				   ((_7ST)st).set完成数量(完成数量+shul2);
+    	  				  ((_7ST)st).set完成数量(完成数量+shul2);*/
+    	  				//当需求大于这个托盘的现有量时，不更新数量，托盘应该走
     	  				    return false;  
     	  				   
     	  			   }

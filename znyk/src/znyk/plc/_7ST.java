@@ -99,6 +99,18 @@ public class _7ST extends ST_Father implements STInterface {
 		  完成数量=((_7ST)st).get完成数量();
 	 
  }
+	 @Override
+	 public boolean isChange(){
+		 if(old==null){
+			 old=new _7ST(plc, machineID,startAddress);
+			 return true;
+			 
+		 }else{
+			 if(this.boolContent!=old.getBoolContent()||!this.getName().equals(old.getName())){return true;} 
+			 
+		 }
+		 return false;}
+
 
 	 public void clear(){
 	    	boolContent=0;
