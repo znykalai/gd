@@ -201,21 +201,73 @@ public class SqlTool {
       Statement st=null;
       ResultSet set=null;
       Connection con=conn.getCon();
-      boolean can=true;
+      boolean have=false;
       String back="未处理";
  try{
         st=con.createStatement();
         con.setAutoCommit(false);
-        String sql="select idEvent,状态,状态2 from 立库动作指令  where 状态<>'完成' and 托盘编号='"+tp+"' order by ID";
-        set=st.executeQuery(sql);
-        if(set.next()){
-        	can=true;
-        	back="关于这个托盘的指令正在执行";
+        int fomI=Integer.parseInt(fromID);
+        int toI=Integer.parseInt(toID);
+        if(type.equals("上货")){
+              if(fomI==60001||fomI==60002){
+        		  if(fomI==60001){
+        			  if((toI>0&&toI<29)||toI>500&&toI<615){}else{
+        				  have=true;
+        				  back="不允许从"+fomI+"货位把货上到"+toI+"货位1";    
+        			  }
+        			  
+        		  }
+        		  if(fomI==60002){
+        			  if(toI>0&&toI<29){}else{
+        				  have=true;
+        				  back="不允许从"+fomI+"货位把货上到"+toI+"货位2";    
+        			  }
+        			  
+        		  }
+        		  
+        	  }else{
+        		  have=true;
+        		  back="不允许从"+fomI+"货位把货上到"+toI+"货位2";  
+        		  
+        	  }
+        	 
         }
-          
+        
+        if(type.equals("下货")){
+        	if(!((fomI>0&&fomI<23)&&(toI==60002||(toI>500&&toI<615)))){
+      		  have=true;
+            	  back="不允许从"+fomI+"货位把货下到"+toI+"货位";
+      	  }
+      }
+      
+        if(type.equals("输送线回流")){
+        	  if(!(fomI>500&&fomI<615)){
+        		  have=true;
+              	  back="输送不允许从"+fomI+"回流到"+toI+"货位";
+        	  }
+        }
+        
+        if(!have){
+        String sqll="select idEvent,状态,状态2 from 立库动作指令  where 状态<>'完成' and 托盘编号='"+tp+"' order by idEvent";
+        set=st.executeQuery(sqll);
+        if(set.next()){
+        	have=true;
+        	back="关于这个托盘的指令有未执行完的指令";
+         }
+        }
         
        if(type.equals("输送线回流")){
-    	   //最好判断下这个TP是不是这个输送线
+    	   //所取的货架有没有这个托盘
+  		 if(!have){
+   	        String sql2="select 货位序号   from 货位表   where  托盘编号='"+tp+"' and 货位序号='"+fromID+"'";	
+   	        set=st.executeQuery(sql2);
+   	         if(!set.next()){
+   	        	have=true;
+   	        	 back="在指定位置没这个托盘";
+   	           }	
+   	        }
+  		 
+  		 if(!have){
     	   String  ql="insert into 立库动作指令 (来源,任务类别,动作,"+
                    "托盘编号,状态,来源货位号,放回货位号,状态2,请求区,是否回大库,新建时间) values("+
                    "'立库',"+
@@ -230,36 +282,42 @@ public class SqlTool {
                       "'"+todaku+"',"+
                       SqlPro.getDate()[1]+
                    ")";
-			    st.executeUpdate(ql);
+			   st.executeUpdate(ql);
+			   back="指令成功加入";
+  		       }
+			   
          }else{
         	
         	 if(type.equals("上货")){
+        		 
         		 //判断去往的货位有没有托盘
-        		 if(!can){
+        		
+        		 if(!have){
+        			  
          	        String sql2="select 托盘编号  from 货位表   where  货位序号='"+toID+"'";	
-         	        set=st.executeQuery(sql);
+         	        set=st.executeQuery(sql2);
          	         if(set.next()){
          	        	Object t=set.getObject(1)==null?"":set.getObject(1);
          	        	if(!t.equals("")){
-         	        	         can=true;
+         	        		have=true;
          	        	         back="去往的货位已经有托盘";
          	        	          }
          	           }	
          	        }
         		 //判断去往的货位在指令队列里面有没有被指定别的托盘
-        		 if(!can){
-        		String sql2="select idEvent,放回货位号,状态  from 立库动作指令  where 状态<>'完成' and 放回货位号='"+toID+"' order by ID";
-          	        set=st.executeQuery(sql);
+        		 if(!have){
+        		String sql2="select idEvent,放回货位号,状态  from 立库动作指令  where 状态<>'完成' and 放回货位号='"+toID+"' order by idEvent";
+          	     set=st.executeQuery(sql2);
           	         if(set.next()){
           	        	Object t=set.getObject(1)==null?"":set.getObject(1);
           	        	if(!t.equals("")){
-          	        	         can=true;
-          	        	         back="在指令队列里去往的货位被安排托盘";
+          	        		have=true;
+          	        	    back="在指令队列里去往的货位被安排托盘";
           	        	          }
           	           }	
           	        }
         		 //如果上面判断多没有，那么想指令队列里面插入数据
-        		  if(!can){
+        		  if(!have){
         			  String  ql="insert into 立库动作指令 (来源,任务类别,动作,"+
                               "托盘编号,状态,来源货位号,放回货位号,状态2,请求区,是否回大库,新建时间) values("+
                               "'立库',"+
@@ -275,43 +333,45 @@ public class SqlTool {
                                  SqlPro.getDate()[1]+
                               ")";
         			    st.executeUpdate(ql);
-        			  
+        			    back="指令成功加入";
         		  }
         		 
         	 }//end上货
 
         	 if(type.equals("下货")){
-        		 //所取的货架有没有货
-        		 if(!can){
+        		 //所取的货架有没有这个托盘
+        		 if(!have){
          	        String sql2="select 货位序号   from 货位表   where  托盘编号='"+tp+"' and 货位序号='"+fromID+"'";	
-         	        set=st.executeQuery(sql);
+         	        set=st.executeQuery(sql2);
          	         if(!set.next()){
-         	        	can=true;
+         	        	have=true;
          	        	 back="在指定位置没这个托盘";
          	           }	
          	        }
-        		 if(toID.equals("60001")){
+        		 
+        		 if(toID.equals("60002")){
         		 //判断取料升降台有没有托盘
-        		 if(!can){//暂时先不做
+        		 if(!have){//暂时先不做
         		
           	        }
         		 
         		   }else{
         		  //判断7条输送线有没有货	   
-        			   if(!can){
+        			   if(!have){
                 	        String sql2="select 托盘编号  from 货位表   where  货位序号='"+toID+"'";	
-                	        set=st.executeQuery(sql);
+                	        set=st.executeQuery(sql2);
                 	         if(set.next()){
                 	        	Object t=set.getObject(1)==null?"":set.getObject(1);
                 	        	if(!t.equals("")){
-                	        	         can=true;
+                	        		have=true;
                 	        	         back="去往的货位已经有托盘";
                 	        	          }
                 	           }	
                 	         }    
         		   }
+        		 
         		 //如果上面判断多没有，那么想指令队列里面插入数据
-        		  if(!can){
+        		  if(!have){
         			  int t=Integer.parseInt(toID);
         			   if(t>500&&t<615)todaku=0;
         			  String  ql="insert into 立库动作指令 (来源,任务类别,动作,"+
@@ -329,7 +389,7 @@ public class SqlTool {
                                  SqlPro.getDate()[1]+
                               ")";
         			    st.executeUpdate(ql);
-        			  
+        			    back="指令成功加入";
         		  }
         		 
         	 }//end下货
@@ -337,9 +397,10 @@ public class SqlTool {
         	 
          }
 
-
+      
        con.commit();
        con.setAutoCommit(true);
+       if(set!=null)
        set.close();
        st.close();
        conn.realseCon();
@@ -347,6 +408,7 @@ public class SqlTool {
      try {
          con.rollback();
          con.setAutoCommit(true);
+         if(set!=null)
          set.close();
          st.close();
          conn.realseCon();

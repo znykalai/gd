@@ -61,8 +61,8 @@ public void startLine(){
 
 public void start堆垛机指令(){
 	
-	 Vector 堆1上=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='上货' and 请求区= '1' order by ID");
-     Vector 堆1下=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='下货' and 请求区= '1' order by ID");
+	 Vector 堆1上=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='上货' and 请求区= '1' order by idEvent");
+     Vector 堆1下=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='下货' and 请求区= '1' order by idEvent");
     
      boolean run=false;
      int last1=1;
@@ -94,7 +94,7 @@ public void start堆垛机指令(){
 			    	 String toID=up.get(6).toString();
 			    	 ClientSer.getIntance().getGD().upPallet(Integer.parseInt(eventID), 
 			    			 Integer.parseInt(fromID), Integer.parseInt(toID), 1);
-			    	 String sql2="update 立库动作指令  set 状态='已发送' where idEvent="+"'"+eventID+"'"; 
+			    	 String sql2="update 立库动作指令  set 状态='已发送',发送时间="+SqlPro.getDate()[1]+" where idEvent="+"'"+eventID+"'"; 
 			    	 SqlTool.insert(new String[]{sql2});
 			      }
 				
@@ -118,7 +118,7 @@ public void start堆垛机指令(){
 			    	 String toID=up.get(6).toString();
 			    	 ClientSer.getIntance().getGD().getPallet(Integer.parseInt(eventID), 
 			    			 fromID, Integer.parseInt(toID), 1);
-			    	 String sql2="update 立库动作指令  set 状态='已发送' where idEvent="+"'"+eventID+"'"; 
+			    	 String sql2="update 立库动作指令  set 状态='已发送',发送时间="+SqlPro.getDate()[1]+" where idEvent="+"'"+eventID+"'"; 
 			    	 SqlTool.insert(new String[]{sql2});
     				
     			}
@@ -129,8 +129,8 @@ public void start堆垛机指令(){
       }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    Vector 堆2上=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='上货' and 请求区= '2' order by ID");
-    Vector 堆2下=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='下货' and 请求区= '2' order by ID");
+    Vector 堆2上=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='上货' and 请求区= '2' order by idEvent");
+    Vector 堆2下=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='下货' and 请求区= '2' order by idEvent");
     
     boolean run2=false;
     int last2=1;
@@ -162,7 +162,7 @@ public void start堆垛机指令(){
 			    	 String toID=up.get(6).toString();
 			    	 ClientSer.getIntance().getGD().upPallet(Integer.parseInt(eventID), 
 			    			 Integer.parseInt(fromID), Integer.parseInt(toID), 2);
-			    	 String sql2="update 立库动作指令  set 状态='已发送' where idEvent="+"'"+eventID+"'"; 
+			    	 String sql2="update 立库动作指令  set 状态='已发送',发送时间="+SqlPro.getDate()[1]+" where idEvent="+"'"+eventID+"'"; 
 			    	 SqlTool.insert(new String[]{sql2});
 			      }
 				
@@ -186,7 +186,7 @@ public void start堆垛机指令(){
 			    	 String toID=up.get(6).toString();
 			    	 ClientSer.getIntance().getGD().getPallet(Integer.parseInt(eventID), 
 			    			 fromID, Integer.parseInt(toID), 2);
-			    	 String sql2="update 立库动作指令  set 状态='已发送' where idEvent="+"'"+eventID+"'"; 
+			    	 String sql2="update 立库动作指令  set 状态='已发送',发送时间="+SqlPro.getDate()[1]+" where idEvent="+"'"+eventID+"'"; 
 			    	 SqlTool.insert(new String[]{sql2});
    				
    			}
@@ -200,8 +200,8 @@ public void start堆垛机指令(){
 
 public void startlineAGV(){
 	
-	 Vector 堆1上=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='输送线回流' and 请求区= '1' order by ID");
-     Vector 堆2上=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='输送线回流' and 请求区= '2' order by ID");
+	 Vector 堆1上=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='输送线回流' and 请求区= '1' order by idEvent");
+     Vector 堆2上=SqlTool.findInVector("select idEvent,来源,任务类别,动作,托盘编号,来源货位号,放回货位号,请求区,状态,状态2 from 立库动作指令  where 状态<>'完成' and 动作='输送线回流' and 请求区= '2' order by idEvent");
    
     boolean run=false;
     boolean run2=false;
@@ -232,7 +232,7 @@ public void startlineAGV(){
 			    	 String toID=up.get(6).toString();
 			    	 ClientSer.getIntance().getGD().toBackBuffer(Integer.parseInt(eventID), 
 			    			 Integer.parseInt(fromID), Integer.parseInt(toID));
-			    	 String sql2="update 立库动作指令  set 状态='已发送' where idEvent="+"'"+eventID+"'"; 
+			    	 String sql2="update 立库动作指令  set 状态='已发送',发送时间="+SqlPro.getDate()[1]+" where idEvent="+"'"+eventID+"'"; 
 			    	 SqlTool.insert(new String[]{sql2});
 			      }
 				
@@ -256,7 +256,7 @@ public void startlineAGV(){
 			    	 String toID=up.get(6).toString();
 			    	 ClientSer.getIntance().getGD().toBackBuffer(Integer.parseInt(eventID), 
 			    			 Integer.parseInt(fromID), Integer.parseInt(toID));
-			    	 String sql2="update 立库动作指令  set 状态='已发送' where idEvent="+"'"+eventID+"'"; 
+			    	 String sql2="update 立库动作指令  set 状态='已发送',发送时间="+SqlPro.getDate()[1]+" where idEvent="+"'"+eventID+"'"; 
 			    	 SqlTool.insert(new String[]{sql2});
    				
    			}
