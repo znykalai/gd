@@ -12,6 +12,7 @@ import java.util.Vector;
 import GDT.Inint;
 import GDT.Resint;
 import localhost.GD_wsdl.GDLocator;
+import znyk.common.ClientSer;
 import znyk.server.SqlTool;
 
 public class PLC implements Serializable {
@@ -21,7 +22,7 @@ public class PLC implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public boolean stop1=false;
 	public boolean stop2=false;
-	public GDLocator gd =new GDLocator();
+	
 	public Vector<STContent> STC1=new Vector<STContent>();
 	public Vector<STContent> STC2=new Vector<STContent>();
 	public CarryLine line=new CarryLine(this);
@@ -368,7 +369,7 @@ public class PLC implements Serializable {
 	//读取光大的状态，并更新托盘数量
     public ReST[] getFromPLC1(){
     	try{
-    		Resint r[]=	gd.getGD().getSirIntValuesFromCTR("D11001", 63, 16, 1);
+    		Resint r[]=	ClientSer.getIntance().getGD().getSirIntValuesFromCTR("D11001", 63, 16, 1);
     		
     		for(int i=0;i<16;i++){
     			Resint bint=r[i*2];
@@ -426,7 +427,7 @@ public class PLC implements Serializable {
   //读取光大的状态，并更新托盘数量
     public ReST[] getFromPLC2(){
     	try{
-    		Resint r[]=	gd.getGD().getSirIntValuesFromCTR("D11001", 63, 16, 2);
+    		Resint r[]=	ClientSer.getIntance().getGD().getSirIntValuesFromCTR("D11001", 63, 16, 2);
     		
     		for(int i=0;i<16;i++){
     			Resint bint=r[i*2];

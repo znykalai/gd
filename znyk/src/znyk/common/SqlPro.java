@@ -93,7 +93,7 @@ public class SqlPro {
 
          String dd8=temp[0]+"-"+(temp[1].length()==1?0+temp[1]:temp[1])+"-"+(temp[2].length()==1?0+temp[2]:temp[2]);
          String dd9=(hms[0].length()==1?0+hms[0]:hms[0])+":"+(hms[1].length()==1?0+hms[1]:hms[1])+":"+(hms[2].length()==1?0+hms[2]:hms[2]);
-         td[1]=dd8+" "+dd9;
+         td[1]="'"+dd8+" "+dd9+"'";
       return td;
   }
 

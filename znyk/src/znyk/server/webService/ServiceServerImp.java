@@ -15,8 +15,12 @@ public class ServiceServerImp implements ServiceServer {
 	@Override
 	public String getLastComment(int machineID,int type) {
 		// TODO Auto-generated method stub
-		return null;
+		return "test";
 	}
 
-	
+	@Override
+	public String exeComment(String comment,int type) {
+		// TODO Auto-generated method stub
+		return "test";
+	}
 }

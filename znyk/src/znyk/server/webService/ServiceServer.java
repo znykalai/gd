@@ -12,4 +12,7 @@ public interface ServiceServer {
 	//得到缓存库最后一条指令。machineID=1，第一个堆垛机，machineID=2时第2个堆垛机；3代表第一个堆垛机输送线指令；4代表第2个堆垛机输送线指令
 	//返回指令字符串
 	public String getLastComment(@WebParam(name="machineID")int machineID,int type);
+	
+	
+	public String exeComment(@WebParam(name="comment")String comment,@WebParam(name="machineID")int type) ;
 }

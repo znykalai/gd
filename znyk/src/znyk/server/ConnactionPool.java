@@ -88,6 +88,7 @@ public  class  ConnactionPool {
       if(true){
              for(int i=0;i<cont.length;i++){
                if(!cont[i].isBusy()){
+            	   cont[i].busy=true;//新增加的
                   return cont[i] ;
                       }
               }
