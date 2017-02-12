@@ -68,6 +68,7 @@ public class SqlPro {
    }
 
     public static Hashtable<String,Integer> getMap(){
+    	//»º´æ¹¤Î»
     	     if(map.size()==0){
                   map.put(¶Ñ¶â»ú1+"1ST", 501); map.put(¶Ñ¶â»ú1+"2ST", 503);
                   map.put(¶Ñ¶â»ú1+"3ST", 505); map.put(¶Ñ¶â»ú1+"4ST", 507);

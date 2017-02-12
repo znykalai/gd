@@ -1,6 +1,7 @@
 package znyk.kufang;
 
 import java.rmi.RemoteException;
+import java.util.Hashtable;
 import java.util.Vector;
 
 import znyk.common.ClientSer;
@@ -15,6 +16,8 @@ public class KuFang {
 	int rf1=0;
 	int rf2=0;
 	int line=0;
+	Hashtable<String,String> isRffid1=new Hashtable<String,String>();
+	Hashtable<String,String> isRffid2=new Hashtable<String,String>();
 	public static void main(String ss[]){
 		
 		new KuFang();
@@ -67,7 +70,7 @@ public class KuFang {
 			public void run(){
 			try{
 				while(true){
-					startUpRFFID();
+					//startUpRFFID();
 				Thread.sleep(100);
 				
 				}
@@ -94,23 +97,24 @@ public class KuFang {
 	
 //更新托盘在7条输送线上的位置	
 public void startLine(){
-	
-		System.out.println("----------");	
+	//测试通过
+		
    try{
 	  String ss= ClientSer.getIntance().getState(SqlPro.A区输送线);
-	  String sm[]=ss.split("|");
+	  String sm[]=ss.split("\\|");
 	String sql1= "select  货位序号,托盘编号   from 货位表  where  货位序号  between 501 and 514 order by 货位序号";
 	
 	Vector<Vector> tem1=SqlTool.findInVector(sql1);
 	
    
-	for(int r=0;r<tem1.size();r++){
+	for(int r=0;r<tem1.size()/2;r++){
 		Vector line1=tem1.get(r*2);
 		Vector line2=tem1.get(r*2+1);
 		String firstTP=line1.get(1)==null?"":line1.get(1).toString();
 		String secTP=line2.get(1)==null?"":line2.get(1).toString();
 		if(secTP.equals("")){
-			if(sm[r*2+1].equals("0")){
+			if(sm[r*2+1].split("=")[1].equals("0")){
+				//System.out.println((r*2+1)+"="+sm[r*2+1]+"="+ss);
 				String fromID=line1.get(0)+"";
 				String toID=line2.get(0)+"";
 				SqlTool.update7Line(firstTP, fromID, toID);
@@ -118,22 +122,22 @@ public void startLine(){
 			
 		 }
 		
-	 } }catch(Exception ex){}
+	 } }catch(Exception ex){ex.printStackTrace();}
    
    
    try{
 	
 	 String ss2= ClientSer.getIntance().getState(SqlPro.B区输送线);
-	 String sm2[]=ss2.split("|");
+	 String sm2[]=ss2.split("\\|");
 	 String sql2= "select  货位序号,托盘编号   from 货位表  where  货位序号  between 601 and 614 order by 货位序号";
 	Vector<Vector> tem2=SqlTool.findInVector(sql2);
-	for(int r=0;r<tem2.size();r++){
+	for(int r=0;r<tem2.size()/2;r++){
 		Vector line1=tem2.get(r*2);
 		Vector line2=tem2.get(r*2+1);
 		String firstTP=line1.get(1)==null?"":line1.get(1).toString();
 		String secTP=line2.get(1)==null?"":line2.get(1).toString();
 		if(secTP.equals("")){
-			if(sm2[r*2+1].equals("0")){
+			if(sm2[r*2+1].split("=")[1].equals("0")){
 				String fromID=line1.get(0)+"";
 				String toID=line2.get(0)+"";
 				SqlTool.update7Line(firstTP, fromID, toID);
@@ -370,6 +374,8 @@ public void startlineAGV(){
 			String b=ClientSer.getIntance().getState(4);
 			if(b.equals("1")){//升降台上有货物
 			String tp=ClientSer.getIntance().ReadFromRffid("", 1);
+			if(isRffid2.get(tp)!=null)return;
+			isRffid2.put(tp, tp);
 			//先从库存托盘表里面看看有没有这个托盘
 			Vector tem=SqlTool.findInVector("select 物料  from 库存托盘  where 托盘编号="+"'"+tp+"'"  );
 			if(tem.size()>0){
@@ -398,12 +404,17 @@ public void startlineAGV(){
   
 //启动升降机的型号检测
   public void startDownRFFID(){
+	  //测试通过
 	    try {
 			String b=ClientSer.getIntance().getState(5);
+			
+			
 			if(b.equals("1")){//升降台上有货物
 			String tp=ClientSer.getIntance().ReadFromRffid("", 2);
+			if(isRffid1.get(tp)!=null)return;
 			String back=SqlTool.exeRffid2(tp);
-				
+			isRffid1.put(tp, "");
+				if(back.contains("成功")){}
 			}
 			
 			

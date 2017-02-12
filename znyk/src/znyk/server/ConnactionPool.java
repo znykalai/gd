@@ -82,7 +82,7 @@ public  class  ConnactionPool {
        }
     
 
-     public static Conn getCon2(String yongh){
+     public static synchronized Conn getCon2(String yongh){
       String name=yongh==null?"":yongh;
     /////////////////////////多组织应该把这个删掉
       if(true){

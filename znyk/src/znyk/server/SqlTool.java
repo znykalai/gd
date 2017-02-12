@@ -431,9 +431,11 @@ public class SqlTool {
    
 //主要应用与来料升降台   
    public static String autoUpPallet(String tp,String wuliao,String fromID,String machineID)  {
-	   if(!fromID.equals("60001")||!fromID.equals("60002"))
+	   Integer id=Integer.parseInt(fromID);
+	   if(id>60002&&id<60001)
 	   {
-		     return "上料点超出范围";
+		  
+		     return "上料点超出范围!_!-1";
 	   }
 	   if(wuliao.equals("")||wuliao==null){wuliao="-1";}
 	   
@@ -494,6 +496,7 @@ public class SqlTool {
        }
        
        if(!isToLine){
+    	  
     	    //60002,那只能去货架   ,如果60001没去Line,那么这里一起处理去货架的情况
     	    //2.首先判断这个托盘默认去哪个位置，在默认去的位置中，看看第一个空的是什么
     	   String quyu="";
@@ -502,7 +505,7 @@ public class SqlTool {
     	   set=st.executeQuery(s1);
     	   if(set.next()){quyu=set.getString(1)==null?"":(String)set.getString(1);}
     	   if(!quyu.equals("")){
-    	   String s2=" SELECT 货位序号 from 货位表   where 货位序号 IN("+quyu+") and `托盘编号` is not null  order by 距离";
+    	   String s2=" SELECT 货位序号 from 货位表   where 货位序号 IN("+quyu+") or `托盘编号` is  null and `托盘编号`='' order by 距离";
     	   set=st.executeQuery(s2);
     	   while(set.next()){
     		   String iss=add动作指令( tp, fromID,set.getObject(1)+"","上货"/*上货，下货，输送线回流*/, 
@@ -517,14 +520,17 @@ public class SqlTool {
  
     	   //3. 判断货架上离上货位最近的距离
     	   if(!isDefault){
-    		   String s3=" SELECT 货位序号  from 货位表   where 托盘编号  is not null order by 距离";
+    		  
+    		   String s3=" SELECT 货位序号  from 货位表   where 托盘编号  is null or `托盘编号`='' order by 距离";
     		   set=st.executeQuery(s3);
     		   while(set.next()){
     			   String iss=add动作指令( tp, fromID,set.getObject(1)+"","上货"/*上货，下货，输送线回流*/, 
  	    				  0/*1=回大库，非1=不回*/,  machineID);
+    			  
      		      if(iss.contains("成功")){
      		    	  isDefault=true;
      		    	  back=iss+"!_!"+set.getObject(1);
+     		    	  System.out.println("------------"+iss);
      		    	  break;} 
     			   
     		   }
@@ -721,11 +727,11 @@ try{
         	 if(set.next()){
         		 Object wul=set.getObject(1);
         		 back =autoUpPallet( tp,wul+"","60002",set.getObject(1)+"");
-        		   
+        		 
         	 }
         	 
          }
-
+      
        con.commit();
        con.setAutoCommit(true);
        st.close();
