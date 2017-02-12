@@ -83,6 +83,7 @@ public class _1_6ST extends ST_Father implements STInterface {
  		     立库RDY=false;
  		     数据更新完成=false;
  		     完成数量=0;
+ 		     物料编码="";
 	    	
 	    }
 	 
@@ -97,6 +98,7 @@ public class _1_6ST extends ST_Father implements STInterface {
 		     立库RDY=((_1_6ST)st).is立库RDY();
 		     数据更新完成=((_1_6ST)st).is数据更新完成();
 		     完成数量=((_1_6ST)st).get完成数量();
+		     物料编码=st.物料编码;
 	 }
 	 
 	 @Override
@@ -114,6 +116,11 @@ public class _1_6ST extends ST_Father implements STInterface {
 			 
 		 }
 		 return false;}
+	 
+	 @Override 
+	 public int get剩余数量(){
+			return 需求数量-完成数量;
+		}
 
 	@Override
 	public int getLength() {

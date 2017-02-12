@@ -41,7 +41,7 @@ public  class  ConnactionPool {
 
     }
   
-  public static ConnactionPool getPool(){
+  public static synchronized ConnactionPool getPool(){
 	  if(pool==null){
 		  
 		  pool=new ConnactionPool();

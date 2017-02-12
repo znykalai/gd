@@ -97,8 +97,13 @@ public class _7ST extends ST_Father implements STInterface {
 		 第2个假电芯位置=((_7ST)st).get第2个假电芯位置();
 	     
 		  完成数量=((_7ST)st).get完成数量();
+		  物料编码=st.物料编码;
 	 
  }
+	 @Override 
+	 public int get剩余数量(){
+			return 需求数量-完成数量;
+		}
 	 @Override
 	 public boolean isChange(){
 		 if(old==null){
@@ -123,6 +128,7 @@ public class _7ST extends ST_Father implements STInterface {
   		     第1个假电芯位置=0;
  		     第2个假电芯位置=0;
  		    完成数量=0;
+ 		    物料编码="";
  		     
 	    	
 	    }

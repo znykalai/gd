@@ -229,6 +229,7 @@ public class STContent implements Serializable {
     	    	 		 ((_1_6ST)firstST).set立库RDY(plc.getSTRdy(装配区,stNum));
     	    	 		 firstST.set工单ID((int)row.get(12));
     	    	 		 firstST.set模组序ID((int)row.get(13));
+    	    	 		 firstST.set物料编码((String)row.get(6));
     	    	 		 firstST.setWrite(true);
     	    	 		  update标志(firstST,2);
     	    	 		
@@ -246,6 +247,7 @@ public class STContent implements Serializable {
     	    	 		 ((_1_6ST)secondST).set立库RDY(plc.getSTRdy(装配区,stNum));
     	    	 		 secondST.set工单ID((int)row2.get(12));
     	    	 		 secondST.set模组序ID((int)row2.get(13));
+    	    	 		 secondST.set物料编码((String)row.get(6));
     	    	 		 secondST.setWrite(true);
     	    	 		 update标志(secondST,2);
     	    	 		 
@@ -265,6 +267,7 @@ public class STContent implements Serializable {
     	    	 		 ((_1_6ST)firstST).set立库RDY(plc.getSTRdy(装配区,stNum));
     	    	 		firstST.set工单ID((int)row.get(12));
     	    	 		firstST.set模组序ID((int)row.get(13));
+    	    	 		secondST.set物料编码((String)row.get(6));
     	    	 		firstST.setWrite(true);
     	    	 		  update标志(firstST,2);
     	    	 		}
@@ -290,6 +293,7 @@ public class STContent implements Serializable {
 				   ((_1_6ST)secondST).set立库RDY(plc.getSTRdy(装配区,stNum));
 				   secondST.set工单ID((int)row.get(12));
 	    	 	   secondST.set模组序ID((int)row.get(13));
+	    	 	   secondST.set物料编码((String)row.get(6));
 				   secondST.setWrite(true);	
 				   update标志(secondST,2);
 				 
@@ -332,6 +336,7 @@ public class STContent implements Serializable {
      	    	 		 ((_7ST)firstST).set立库RDY(plc.getSTRdy(装配区,stNum));
      	    	 		 firstST.set工单ID((int)row.get(14));
     	    	 		 firstST.set模组序ID((int)row.get(15));
+    	    	 		firstST.set物料编码((String)row.get(6));
      	    	 		 firstST.setWrite(true);
      	    	 		 update标志(firstST,2);
      	    	 		
@@ -350,6 +355,7 @@ public class STContent implements Serializable {
      	    	 		 ((_7ST)secondST).set立库RDY(plc.getSTRdy(装配区,stNum));
      	    	 		 secondST.set工单ID((int)row2.get(14));
      	    	 		 secondST.set模组序ID((int)row2.get(15));
+     	    	 		 secondST.set物料编码((String)row.get(6));
      	    	 		 secondST.setWrite(true);
      	    	 		 update标志(secondST,2);
      	    	 		 
@@ -371,6 +377,7 @@ public class STContent implements Serializable {
      	    	 		 ((_7ST)firstST).set立库RDY(plc.getSTRdy(装配区,stNum));
      	    	 		 firstST.set工单ID((int)row.get(14));
     	    	 		 firstST.set模组序ID((int)row.get(15));
+    	    	 		 firstST.set物料编码((String)row.get(6));
      	    	 		 firstST.setWrite(true);
      	    	 		 update标志(firstST,2);
      	    	 		}
@@ -399,6 +406,7 @@ public class STContent implements Serializable {
  				   ((_7ST)secondST).set立库RDY(plc.getSTRdy(装配区,stNum));
  				   secondST.set工单ID((int)row.get(14));
  				   secondST.set模组序ID((int)row.get(15));
+ 				   secondST.set物料编码((String)row.get(6));
  				   secondST.setWrite(true);	
  				   update标志(secondST,2);
  				 

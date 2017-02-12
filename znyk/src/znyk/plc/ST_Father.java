@@ -21,6 +21,15 @@ public class ST_Father implements STInterface, Serializable{
 	protected int 模组序ID;
 	protected int 分解号;//模组号
 	protected int 载具序号;
+	public String 物料编码="";
+	
+	public String get物料编码() {
+		return 物料编码;
+	}
+	public void set物料编码(String 物料编码) {
+		this.物料编码 = 物料编码;
+	}
+
 	public Hashtable table=new Hashtable();
 	protected ST_Father old;
 	public String getName(){
@@ -141,6 +150,9 @@ public class ST_Father implements STInterface, Serializable{
 		}
 		
 		return null;
+	}
+	public int get剩余数量(){
+		return 0;
 	}
 
 	@Override

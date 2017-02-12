@@ -20,12 +20,10 @@ import java.io.DataInputStream;
 public class SqlPro {
     public static String tp=null;
       public static boolean 演示=false;
-  public static float 默认数量=5;//当物料没设定装载系数时的值
-   public static String L_总状态="未准备";//未准备，正常
-    public static String L_条码枪状态="未连接";//必有一个状态"正常",未连接,已连接
-    public static String L_输送线状态="未连接";//必有一个状态"正常",未连接,已连接
-    public static String L_堆垛机1="未连接";//必有一个状态"正常",未连接,已连接
-    public static String L_堆垛机2="未连接";//必有一个状态"正常",未连接,已连接
+     public static float 默认数量=5;//当物料没设定装载系数时的值
+   static Hashtable<String,Integer> map=new Hashtable<String,Integer>();
+    public static int 堆垛机1=1;
+    public static int 堆垛机2=2;
     public static String ip_port="//127.0.0.1:5650";
     public static String ip_port2="//127.0.0.1:5000";
     public static int 服务=1;
@@ -37,7 +35,11 @@ public class SqlPro {
     public static int AGV2=7;
     public static int A区输送线=8;
     public static int B区输送线=9;
-   
+    public static int 堆垛空闲码=3;
+    public static int AGV空闲码=3;
+    public static int 排队=1;
+    public static int 运行中=2;
+    public static int 完成=3;
 
     public static String kind[]
     =new String[]{"无扁尾莫氏圆锥孔刀柄","刀盘","刀片","玉米刀体","有扁尾莫氏圆锥孔刀柄",
@@ -65,7 +67,18 @@ public class SqlPro {
      canshu.put("三面刃铣刀刀柄",new String[]{"长度(L)","长度(L1)","直径(D)","直径(dm)","宽(W)","锥度"});
    }
 
-
+    public static Hashtable<String,Integer> getMap(){
+    	     if(map.size()==0){
+                  map.put(堆垛机1+"1ST", 501); map.put(堆垛机1+"2ST", 503);
+                  map.put(堆垛机1+"3ST", 505); map.put(堆垛机1+"4ST", 507);
+                  map.put(堆垛机1+"5ST", 509); map.put(堆垛机1+"6ST", 511);map.put(堆垛机1+"7ST", 513);
+                  map.put(堆垛机2+"1ST", 601); map.put(堆垛机2+"2ST", 603);
+                  map.put(堆垛机2+"3ST", 605); map.put(堆垛机2+"4ST", 607);
+                  map.put(堆垛机2+"5ST", 609); map.put(堆垛机2+"6ST", 611);map.put(堆垛机2+"7ST", 613);
+    	     }
+    	
+    	    return map;
+    }
     ///****//
     public static String 库存init="库存初始化";
     public static String[] getDate(){
@@ -354,5 +367,5 @@ public class SqlPro {
 
   }
 
-
+ 
 }

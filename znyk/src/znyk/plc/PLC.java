@@ -297,7 +297,7 @@ public class PLC implements Serializable {
 		STC2.add(ST12_2);STC2.add(ST13_2);STC2.add(ST14_2);STC2.add(ST15_2);
 	 }
 	
-	public static PLC getIntance(){
+	public static synchronized PLC getIntance(){
 		if(INSTANCE!=null){return INSTANCE;}else{
 			INSTANCE=new PLC();
 			INSTANCE.startTiaodu();
@@ -369,7 +369,7 @@ public class PLC implements Serializable {
 	//读取光大的状态，并更新托盘数量
     public ReST[] getFromPLC1(){
     	try{
-    		Resint r[]=	ClientSer.getIntance().getGD().getSirIntValuesFromCTR("D11001", 63, 16, 1);
+    		Resint r[]=	ClientSer.getIntance().getSirIntValuesFromCTR("D11001", 63, 16, 1);
     		
     		for(int i=0;i<16;i++){
     			Resint bint=r[i*2];
@@ -427,7 +427,7 @@ public class PLC implements Serializable {
   //读取光大的状态，并更新托盘数量
     public ReST[] getFromPLC2(){
     	try{
-    		Resint r[]=	ClientSer.getIntance().getGD().getSirIntValuesFromCTR("D11001", 63, 16, 2);
+    		Resint r[]=	ClientSer.getIntance().getSirIntValuesFromCTR("D11001", 63, 16, 2);
     		
     		for(int i=0;i<16;i++){
     			Resint bint=r[i*2];
