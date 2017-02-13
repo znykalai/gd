@@ -674,9 +674,10 @@ try{
 	}
    
    //从大库根据托盘编码或取物料和数量的方法
+   public static String fromDKisTP="wuliao!_!1";
    public static String getWuliaoFromLK(String tp){
 	   
-	   return "wuliao!_!数量";
+	   return fromDKisTP;
    }
    
    //通知升降台，可以升起向大库送货

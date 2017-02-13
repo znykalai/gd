@@ -45,7 +45,7 @@ public class PLCFrame extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the frame. 
 	 */
 	public PLCFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

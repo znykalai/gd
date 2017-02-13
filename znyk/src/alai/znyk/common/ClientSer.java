@@ -62,7 +62,7 @@ public class ClientSer {
 		if(t==SqlPro.A区输送线){
 			String s="501=1|502=0|503=1|504=0|505=1|506=0|507=1|508=0|"+
 					"509=1|510=0|511=1|512=0|513=1|514=0";
-			Vector v=SqlTool.findInVector("select 工位,信号 from 有货信号");
+			Vector v=SqlTool.findInVector("select 工位,信号 from 有货信号  order by 工位");
 			String tem="";
 			for(int i=0;i<v.size();i++){
 				
@@ -78,6 +78,7 @@ public class ClientSer {
 			return s
 		;
 		}
+		
 		if(t==SqlPro.B区输送线){
 			return "601=1|602=0|603=1|604=0|605=1|606=0|607=1|608=0|"+
 					"609=1|610=0|611=1|612=0|613=1|614=0"
@@ -86,7 +87,7 @@ public class ClientSer {
 		
 		if(t==10){
 			String s="502=1|504=0|506=1|508=0|510=1|512=0|514=1";
-			Vector v=SqlTool.findInVector("select 工位,信号 from 到位信号");
+			Vector v=SqlTool.findInVector("select 工位,信号 from 到位信号  order by 工位");
 			String tem="";
 			for(int i=0;i<v.size();i++){
 				

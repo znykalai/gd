@@ -54,7 +54,7 @@ public class CommentPanel extends JPanel {
 			  Object name2=modezl.getValueAt(row,modezl.getColumnCount()-1)==null?"0":modezl.getValueAt(row,modezl.getColumnCount()-1);
 			  if(!name2.equals("0"))
 			  // SqlTool.insert(new String[]{"update 立库动作指令 set 状态='完成' where idEvent='"+name+"'"});
-				  if(isWan.equals("完成")){
+				  if(!isWan.equals("完成")){
 			    SqlTool.setStateForEventID(Integer.parseInt(name.toString()), SqlPro.完成, "");
 				Vector v3=SqlTool.findInVector("select idEvent,动作,托盘编号,来源货位号,放回货位号,状态,状态2,是否回大库,空  from 立库动作指令  order by idEvent");
 				modezl.setDataVector(v3, zl);
@@ -63,7 +63,7 @@ public class CommentPanel extends JPanel {
 				
 				
 				Vector v5=SqlTool.findInVector("select 货位序号,托盘编号   from 货位表  order by 距离");
-				modeTP.setDataVector(v5, KF);
+				modeKF.setDataVector(v5, KF);
 				  }
 			 }
 			}
