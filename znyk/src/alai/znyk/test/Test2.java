@@ -1,6 +1,6 @@
-package znyk.test;
+package alai.znyk.test;
 
-import znyk.server.SqlTool;
+import alai.znyk.server.SqlTool;
 
 public class Test2 {
 

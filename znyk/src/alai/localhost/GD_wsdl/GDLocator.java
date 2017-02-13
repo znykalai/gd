@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package localhost.GD_wsdl;
+package alai.localhost.GD_wsdl;
 
-public class GDLocator extends org.apache.axis.client.Service implements localhost.GD_wsdl.GD {
+public class GDLocator extends org.apache.axis.client.Service implements alai.localhost.GD_wsdl.GD {
 
 /**
  * gSOAP 2.8.39 generated service definition
@@ -43,7 +43,7 @@ public class GDLocator extends org.apache.axis.client.Service implements localho
         GDWSDDServiceName = name;
     }
 
-    public localhost.GD_wsdl.GDPortType getGD() throws javax.xml.rpc.ServiceException {
+    public alai.localhost.GD_wsdl.GDPortType getGD() throws javax.xml.rpc.ServiceException {
        java.net.URL endpoint;
         try {
             endpoint = new java.net.URL(GD_address);
@@ -54,9 +54,9 @@ public class GDLocator extends org.apache.axis.client.Service implements localho
         return getGD(endpoint);
     }
 
-    public localhost.GD_wsdl.GDPortType getGD(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
+    public alai.localhost.GD_wsdl.GDPortType getGD(java.net.URL portAddress) throws javax.xml.rpc.ServiceException {
         try {
-            localhost.GD_wsdl.GDStub _stub = new localhost.GD_wsdl.GDStub(portAddress, this);
+            alai.localhost.GD_wsdl.GDStub _stub = new alai.localhost.GD_wsdl.GDStub(portAddress, this);
             _stub.setPortName(getGDWSDDServiceName());
             return _stub;
         }
@@ -76,8 +76,8 @@ public class GDLocator extends org.apache.axis.client.Service implements localho
      */
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
-            if (localhost.GD_wsdl.GDPortType.class.isAssignableFrom(serviceEndpointInterface)) {
-                localhost.GD_wsdl.GDStub _stub = new localhost.GD_wsdl.GDStub(new java.net.URL(GD_address), this);
+            if (alai.localhost.GD_wsdl.GDPortType.class.isAssignableFrom(serviceEndpointInterface)) {
+                alai.localhost.GD_wsdl.GDStub _stub = new alai.localhost.GD_wsdl.GDStub(new java.net.URL(GD_address), this);
                 _stub.setPortName(getGDWSDDServiceName());
                 return _stub;
             }

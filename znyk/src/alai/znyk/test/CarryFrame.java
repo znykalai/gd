@@ -1,4 +1,4 @@
-package znyk.test;
+package alai.znyk.test;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,9 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import znyk.plc.CarryLine;
-import znyk.plc.PLC;
-import znyk.plc.STContent;
+import alai.znyk.plc.CarryLine;
+import alai.znyk.plc.PLC;
+import alai.znyk.plc.STContent;
 
 import java.awt.GridLayout;
 import java.util.Vector;

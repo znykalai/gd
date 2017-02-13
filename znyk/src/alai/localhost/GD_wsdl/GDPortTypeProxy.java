@@ -1,8 +1,8 @@
-package localhost.GD_wsdl;
+package alai.localhost.GD_wsdl;
 
-public class GDPortTypeProxy implements localhost.GD_wsdl.GDPortType {
+public class GDPortTypeProxy implements alai.localhost.GD_wsdl.GDPortType {
   private String _endpoint = null;
-  private localhost.GD_wsdl.GDPortType gDPortType = null;
+  private alai.localhost.GD_wsdl.GDPortType gDPortType = null;
   
   public GDPortTypeProxy() {
     _initGDPortTypeProxy();
@@ -15,7 +15,7 @@ public class GDPortTypeProxy implements localhost.GD_wsdl.GDPortType {
   
   private void _initGDPortTypeProxy() {
     try {
-      gDPortType = (new localhost.GD_wsdl.GDLocator()).getGD();
+      gDPortType = (new alai.localhost.GD_wsdl.GDLocator()).getGD();
       if (gDPortType != null) {
         if (_endpoint != null)
           ((javax.xml.rpc.Stub)gDPortType)._setProperty("javax.xml.rpc.service.endpoint.address", _endpoint);
@@ -38,19 +38,19 @@ public class GDPortTypeProxy implements localhost.GD_wsdl.GDPortType {
     
   }
   
-  public localhost.GD_wsdl.GDPortType getGDPortType() {
+  public alai.localhost.GD_wsdl.GDPortType getGDPortType() {
     if (gDPortType == null)
       _initGDPortTypeProxy();
     return gDPortType;
   }
   
-  public GDT.Resint[] arrtest(GDT.Instr[] into, int nPosition) throws java.rmi.RemoteException{
+  public alai.GDT.Resint[] arrtest(alai.GDT.Instr[] into, int nPosition) throws java.rmi.RemoteException{
     if (gDPortType == null)
       _initGDPortTypeProxy();
     return gDPortType.arrtest(into, nPosition);
   }
   
-  public GDT.Resint[] downFile(java.lang.String pcFileName, int nPosition) throws java.rmi.RemoteException{
+  public alai.GDT.Resint[] downFile(java.lang.String pcFileName, int nPosition) throws java.rmi.RemoteException{
     if (gDPortType == null)
       _initGDPortTypeProxy();
     return gDPortType.downFile(pcFileName, nPosition);
@@ -62,13 +62,13 @@ public class GDPortTypeProxy implements localhost.GD_wsdl.GDPortType {
     return gDPortType.getValueFromCTR(type1, address, machineID);
   }
   
-  public GDT.Resint[] getValuesFromCTR(int type1, GDT.Instr[] inaddress, int machineID) throws java.rmi.RemoteException{
+  public alai.GDT.Resint[] getValuesFromCTR(int type1, alai.GDT.Instr[] inaddress, int machineID) throws java.rmi.RemoteException{
     if (gDPortType == null)
       _initGDPortTypeProxy();
     return gDPortType.getValuesFromCTR(type1, inaddress, machineID);
   }
   
-  public GDT.Resint[] getSirIntValuesFromCTR(String startAddress, int nums, int valuseLen, int machineID) throws java.rmi.RemoteException{
+  public alai.GDT.Resint[] getSirIntValuesFromCTR(String startAddress, int nums, int valuseLen, int machineID) throws java.rmi.RemoteException{
     if (gDPortType == null)
       _initGDPortTypeProxy();
     return gDPortType.getSirIntValuesFromCTR(startAddress, nums, valuseLen, machineID);
@@ -80,13 +80,13 @@ public class GDPortTypeProxy implements localhost.GD_wsdl.GDPortType {
     return gDPortType.writeValueToCTR(type1, address, value);
   }
   
-  public int writeValuesToCTR(int type1, GDT.Instr[] inaddress, GDT.Inint[] inValues, int machineID) throws java.rmi.RemoteException{
+  public int writeValuesToCTR(int type1, alai.GDT.Instr[] inaddress, alai.GDT.Inint[] inValues, int machineID) throws java.rmi.RemoteException{
     if (gDPortType == null)
       _initGDPortTypeProxy();
     return gDPortType.writeValuesToCTR(type1, inaddress, inValues, machineID);
   }
   
-  public int writeSirIntToCTR(String strAddress, int valuseLeng, GDT.Inint[] invalues, int machineID) throws java.rmi.RemoteException{
+  public int writeSirIntToCTR(String strAddress, int valuseLeng, alai.GDT.Inint[] invalues, int machineID) throws java.rmi.RemoteException{
     if (gDPortType == null)
       _initGDPortTypeProxy();
     return gDPortType.writeSirIntToCTR(strAddress, valuseLeng, invalues, machineID);
@@ -128,7 +128,7 @@ public class GDPortTypeProxy implements localhost.GD_wsdl.GDPortType {
     return gDPortType.toBackHome(idEvent, fromID);
   }
   
-  public GDT.Resdouble[] getXYZ(int t) throws java.rmi.RemoteException{
+  public alai.GDT.Resdouble[] getXYZ(int t) throws java.rmi.RemoteException{
     if (gDPortType == null)
       _initGDPortTypeProxy();
     return gDPortType.getXYZ(t);

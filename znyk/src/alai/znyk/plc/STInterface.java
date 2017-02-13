@@ -1,4 +1,4 @@
-package znyk.plc;
+package alai.znyk.plc;
 
 public interface STInterface {
 	

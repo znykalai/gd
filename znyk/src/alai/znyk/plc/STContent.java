@@ -1,9 +1,9 @@
-package znyk.plc;
+package alai.znyk.plc;
 
 import java.io.Serializable;
 import java.util.Vector;
 
-import znyk.server.SqlTool;
+import alai.znyk.server.SqlTool;
 
 public class STContent implements Serializable {
     /**
@@ -450,7 +450,7 @@ public class STContent implements Serializable {
     			 if(car==null){continue;}
     			 String ss1= car.get电芯位置1(); String ss2= car.get电芯位置2();
     			 String ss3= car.get电芯位置3(); String ss4= car.get电芯位置4();
-    			 System.out.println(car.载具序号+"=====================");
+    			// System.out.println(car.载具序号+"=====================");
     		if(ss1!=null||ss2!=null||ss3!=null||ss4!=null){
     			int d1=0;int d2=0;int d3=0;int d4=0;
     			if(ss1!=null){d1=Integer.parseInt(ss1.split("=")[0]);}
@@ -487,7 +487,7 @@ public class STContent implements Serializable {
         			 if(car==null){continue;}
         			 String ss1= car.get电芯位置1(); String ss2= car.get电芯位置2();
         			 String ss3= car.get电芯位置3(); String ss4= car.get电芯位置4();
-        			 System.out.println(car.载具序号+"=2====================");
+        			// System.out.println(car.载具序号+"=2====================");
         		if(ss1!=null||ss2!=null||ss3!=null||ss4!=null){
         			int d1=0;int d2=0;int d3=0;int d4=0;
         			if(ss1!=null){d1=Integer.parseInt(ss1.split("=")[0]);}
@@ -532,7 +532,7 @@ public class STContent implements Serializable {
         			 if(s.equals(s2)){continue;}
         			 String ss1= car.get电芯位置1(); String ss2= car.get电芯位置2();
         			 String ss3= car.get电芯位置3(); String ss4= car.get电芯位置4();
-        			 System.out.println(s+"="+s2+"=3====================");
+        			 //System.out.println(s+"="+s2+"=3====================");
         		if(ss1!=null||ss2!=null||ss3!=null||ss4!=null){
         			int d1=0;int d2=0;int d3=0;int d4=0;
         			if(ss1!=null){d1=Integer.parseInt(ss1.split("=")[0]);}

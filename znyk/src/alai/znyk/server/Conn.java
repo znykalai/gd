@@ -1,10 +1,12 @@
-package znyk.server;
+package alai.znyk.server;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.Statement;
+
+import alai.znyk.common.SqlPro;
+
 import java.sql.*;
-import znyk.common.SqlPro;
 /**
  * <p>Title: </p>
  *

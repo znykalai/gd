@@ -5,19 +5,19 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package localhost.GD_wsdl;
+package alai.localhost.GD_wsdl;
 
 public interface GDPortType extends java.rmi.Remote {
 
     /**
      * Service definition of function ns__Arrtest
      */
-    public GDT.Resint[] arrtest(GDT.Instr[] into, int nPosition) throws java.rmi.RemoteException;
+    public alai.GDT.Resint[] arrtest(alai.GDT.Instr[] into, int nPosition) throws java.rmi.RemoteException;
 
     /**
      * Service definition of function ns__DownFile
      */
-    public GDT.Resint[] downFile(java.lang.String pcFileName, int nPosition) throws java.rmi.RemoteException;
+    public alai.GDT.Resint[] downFile(java.lang.String pcFileName, int nPosition) throws java.rmi.RemoteException;
 
     /**
      * Service definition of function ns__getValueFromCTR
@@ -27,12 +27,12 @@ public interface GDPortType extends java.rmi.Remote {
     /**
      * Service definition of function ns__getValuesFromCTR
      */
-    public GDT.Resint[] getValuesFromCTR(int type1, GDT.Instr[] inaddress, int machineID) throws java.rmi.RemoteException;
+    public alai.GDT.Resint[] getValuesFromCTR(int type1, alai.GDT.Instr[] inaddress, int machineID) throws java.rmi.RemoteException;
 
     /**
      * Service definition of function ns__getSirIntValuesFromCTR
      */
-    public GDT.Resint[] getSirIntValuesFromCTR(String startAddress, int nums, int valuseLen, int machineID) throws java.rmi.RemoteException;
+    public alai.GDT.Resint[] getSirIntValuesFromCTR(String startAddress, int nums, int valuseLen, int machineID) throws java.rmi.RemoteException;
 
     /**
      * Service definition of function ns__WriteValueToCTR
@@ -42,12 +42,12 @@ public interface GDPortType extends java.rmi.Remote {
     /**
      * Service definition of function ns__WriteValuesToCTR
      */
-    public int writeValuesToCTR(int type1, GDT.Instr[] inaddress, GDT.Inint[] inValues, int machineID) throws java.rmi.RemoteException;
+    public int writeValuesToCTR(int type1, alai.GDT.Instr[] inaddress, alai.GDT.Inint[] inValues, int machineID) throws java.rmi.RemoteException;
 
     /**
      * Service definition of function ns__WriteSirIntToCTR
      */
-    public int writeSirIntToCTR(String strAddress, int valuseLeng, GDT.Inint[] invalues, int machineID) throws java.rmi.RemoteException;
+    public int writeSirIntToCTR(String strAddress, int valuseLeng, alai.GDT.Inint[] invalues, int machineID) throws java.rmi.RemoteException;
 
     /**
      * Service definition of function ns__ReadFromRffid
@@ -82,7 +82,7 @@ public interface GDPortType extends java.rmi.Remote {
     /**
      * Service definition of function ns__getXYZ
      */
-    public GDT.Resdouble[] getXYZ(int t) throws java.rmi.RemoteException;
+    public alai.GDT.Resdouble[] getXYZ(int t) throws java.rmi.RemoteException;
 
     /**
      * Service definition of function ns__getState

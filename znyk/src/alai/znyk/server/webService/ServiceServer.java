@@ -1,4 +1,4 @@
-package znyk.server.webService;
+package alai.znyk.server.webService;
 
 import javax.jws.WebParam;
 import javax.jws.WebService;

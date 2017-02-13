@@ -1,4 +1,4 @@
-package znyk.test;
+package alai.znyk.test;
 
 import java.awt.Component;
 import java.awt.event.*;

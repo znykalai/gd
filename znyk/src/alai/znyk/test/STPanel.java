@@ -1,4 +1,4 @@
-package znyk.test;
+package alai.znyk.test;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -12,11 +12,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
 
-import znyk.plc.PLC;
-import znyk.plc.ReST;
-import znyk.plc.STInterface;
-import znyk.plc._1_6ST;
-import znyk.plc.STContent;
+import alai.znyk.plc.PLC;
+import alai.znyk.plc.ReST;
+import alai.znyk.plc.STContent;
+import alai.znyk.plc.STInterface;
+import alai.znyk.plc._1_6ST;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;

@@ -1,4 +1,4 @@
-package znyk.common;
+package alai.znyk.common;
 import java.util.Hashtable;
 import java.net.URL;
 import javax.swing.ImageIcon;

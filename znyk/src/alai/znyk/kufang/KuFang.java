@@ -1,13 +1,12 @@
-package znyk.kufang;
+package alai.znyk.kufang;
 
 import java.rmi.RemoteException;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import znyk.common.ClientSer;
-import znyk.common.SqlPro;
-
-import znyk.server.SqlTool;
+import alai.znyk.common.ClientSer;
+import alai.znyk.common.SqlPro;
+import alai.znyk.server.SqlTool;
 
 public class KuFang {
 	int zl=0;

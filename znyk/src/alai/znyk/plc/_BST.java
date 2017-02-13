@@ -1,4 +1,4 @@
-package znyk.plc;
+package alai.znyk.plc;
 
 public class _BST extends ST_Father implements STInterface {
 //1到6的工位，要求每个数字的地址必须连续

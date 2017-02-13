@@ -5,9 +5,9 @@
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
  */
 
-package localhost.GD_wsdl;
+package alai.localhost.GD_wsdl;
 
-public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_wsdl.GDPortType {
+public class GDStub extends org.apache.axis.client.Stub implements alai.localhost.GD_wsdl.GDPortType {
     private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();
     private java.util.Vector cachedSerFactories = new java.util.Vector();
@@ -26,12 +26,12 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         org.apache.axis.description.ParameterDesc param;
         oper = new org.apache.axis.description.OperationDesc();
         oper.setName("Arrtest");
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "into"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:GD", "ArrayOfinstr"), GDT.Instr[].class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "into"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:GD", "ArrayOfinstr"), alai.GDT.Instr[].class, false, false);
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "nPosition"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("urn:GD", "ArrayOfresint"));
-        oper.setReturnClass(GDT.Resint[].class);
+        oper.setReturnClass(alai.GDT.Resint[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "r"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
@@ -44,7 +44,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "nPosition"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("urn:GD", "ArrayOfresint"));
-        oper.setReturnClass(GDT.Resint[].class);
+        oper.setReturnClass(alai.GDT.Resint[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "r"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
@@ -69,12 +69,12 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         oper.setName("getValuesFromCTR");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "type1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "Inaddress"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:GD", "ArrayOfinstr"), GDT.Instr[].class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "Inaddress"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:GD", "ArrayOfinstr"), alai.GDT.Instr[].class, false, false);
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "machineID"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("urn:GD", "ArrayOfresint"));
-        oper.setReturnClass(GDT.Resint[].class);
+        oper.setReturnClass(alai.GDT.Resint[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "r"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
@@ -91,7 +91,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "machineID"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("urn:GD", "ArrayOfresint"));
-        oper.setReturnClass(GDT.Resint[].class);
+        oper.setReturnClass(alai.GDT.Resint[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "r"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
@@ -116,9 +116,9 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         oper.setName("WriteValuesToCTR");
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "type1"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "Inaddress"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:GD", "ArrayOfinstr"), GDT.Instr[].class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "Inaddress"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:GD", "ArrayOfinstr"), alai.GDT.Instr[].class, false, false);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "InValues"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:GD", "ArrayOfinint"), GDT.Inint[].class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "InValues"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:GD", "ArrayOfinint"), alai.GDT.Inint[].class, false, false);
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "machineID"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
@@ -135,7 +135,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "valuseLeng"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
-        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "Invalues"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:GD", "ArrayOfinint"), GDT.Inint[].class, false, false);
+        param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "Invalues"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("urn:GD", "ArrayOfinint"), alai.GDT.Inint[].class, false, false);
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "machineID"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
@@ -248,7 +248,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("", "T"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
         oper.setReturnType(new javax.xml.namespace.QName("urn:GD", "ArrayOfresdouble"));
-        oper.setReturnClass(GDT.Resdouble[].class);
+        oper.setReturnClass(alai.GDT.Resdouble[].class);
         oper.setReturnQName(new javax.xml.namespace.QName("", "r"));
         oper.setStyle(org.apache.axis.constants.Style.RPC);
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
@@ -313,7 +313,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
             java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
             qName = new javax.xml.namespace.QName("urn:GD", "ArrayOfinint");
             cachedSerQNames.add(qName);
-            cls = GDT.Inint[].class;
+            cls = alai.GDT.Inint[].class;
             cachedSerClasses.add(cls);
             qName = new javax.xml.namespace.QName("urn:GD", "inint");
             qName2 = null;
@@ -322,7 +322,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
 
             qName = new javax.xml.namespace.QName("urn:GD", "ArrayOfinstr");
             cachedSerQNames.add(qName);
-            cls = GDT.Instr[].class;
+            cls = alai.GDT.Instr[].class;
             cachedSerClasses.add(cls);
             qName = new javax.xml.namespace.QName("urn:GD", "instr");
             qName2 = null;
@@ -331,7 +331,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
 
             qName = new javax.xml.namespace.QName("urn:GD", "ArrayOfresdouble");
             cachedSerQNames.add(qName);
-            cls = GDT.Resdouble[].class;
+            cls = alai.GDT.Resdouble[].class;
             cachedSerClasses.add(cls);
             qName = new javax.xml.namespace.QName("urn:GD", "resdouble");
             qName2 = null;
@@ -340,7 +340,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
 
             qName = new javax.xml.namespace.QName("urn:GD", "ArrayOfresint");
             cachedSerQNames.add(qName);
-            cls = GDT.Resint[].class;
+            cls = alai.GDT.Resint[].class;
             cachedSerClasses.add(cls);
             qName = new javax.xml.namespace.QName("urn:GD", "resint");
             qName2 = null;
@@ -349,28 +349,28 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
 
             qName = new javax.xml.namespace.QName("urn:GD", "inint");
             cachedSerQNames.add(qName);
-            cls = GDT.Inint.class;
+            cls = alai.GDT.Inint.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
             qName = new javax.xml.namespace.QName("urn:GD", "instr");
             cachedSerQNames.add(qName);
-            cls = GDT.Instr.class;
+            cls = alai.GDT.Instr.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
             qName = new javax.xml.namespace.QName("urn:GD", "resdouble");
             cachedSerQNames.add(qName);
-            cls = GDT.Resdouble.class;
+            cls = alai.GDT.Resdouble.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
             qName = new javax.xml.namespace.QName("urn:GD", "resint");
             cachedSerQNames.add(qName);
-            cls = GDT.Resint.class;
+            cls = alai.GDT.Resint.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -442,7 +442,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         }
     }
 
-    public GDT.Resint[] arrtest(GDT.Instr[] into, int nPosition) throws java.rmi.RemoteException {
+    public alai.GDT.Resint[] arrtest(alai.GDT.Instr[] into, int nPosition) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -463,9 +463,9 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         else {
             extractAttachments(_call);
             try {
-                return (GDT.Resint[]) _resp;
+                return (alai.GDT.Resint[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (GDT.Resint[]) org.apache.axis.utils.JavaUtils.convert(_resp, GDT.Resint[].class);
+                return (alai.GDT.Resint[]) org.apache.axis.utils.JavaUtils.convert(_resp, alai.GDT.Resint[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -473,7 +473,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
 }
     }
 
-    public GDT.Resint[] downFile(java.lang.String pcFileName, int nPosition) throws java.rmi.RemoteException {
+    public alai.GDT.Resint[] downFile(java.lang.String pcFileName, int nPosition) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -494,9 +494,9 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         else {
             extractAttachments(_call);
             try {
-                return (GDT.Resint[]) _resp;
+                return (alai.GDT.Resint[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (GDT.Resint[]) org.apache.axis.utils.JavaUtils.convert(_resp, GDT.Resint[].class);
+                return (alai.GDT.Resint[]) org.apache.axis.utils.JavaUtils.convert(_resp, alai.GDT.Resint[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -535,7 +535,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
 }
     }
 
-    public GDT.Resint[] getValuesFromCTR(int type1, GDT.Instr[] inaddress, int machineID) throws java.rmi.RemoteException {
+    public alai.GDT.Resint[] getValuesFromCTR(int type1, alai.GDT.Instr[] inaddress, int machineID) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -556,9 +556,9 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         else {
             extractAttachments(_call);
             try {
-                return (GDT.Resint[]) _resp;
+                return (alai.GDT.Resint[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (GDT.Resint[]) org.apache.axis.utils.JavaUtils.convert(_resp, GDT.Resint[].class);
+                return (alai.GDT.Resint[]) org.apache.axis.utils.JavaUtils.convert(_resp, alai.GDT.Resint[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -566,7 +566,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
 }
     }
 
-    public GDT.Resint[] getSirIntValuesFromCTR(String startAddress, int nums, int valuseLen, int machineID) throws java.rmi.RemoteException {
+    public alai.GDT.Resint[] getSirIntValuesFromCTR(String startAddress, int nums, int valuseLen, int machineID) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -587,9 +587,9 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         else {
             extractAttachments(_call);
             try {
-                return (GDT.Resint[]) _resp;
+                return (alai.GDT.Resint[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (GDT.Resint[]) org.apache.axis.utils.JavaUtils.convert(_resp, GDT.Resint[].class);
+                return (alai.GDT.Resint[]) org.apache.axis.utils.JavaUtils.convert(_resp, alai.GDT.Resint[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {
@@ -628,7 +628,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
 }
     }
 
-    public int writeValuesToCTR(int type1, GDT.Instr[] inaddress, GDT.Inint[] inValues, int machineID) throws java.rmi.RemoteException {
+    public int writeValuesToCTR(int type1, alai.GDT.Instr[] inaddress, alai.GDT.Inint[] inValues, int machineID) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -659,7 +659,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
 }
     }
 
-    public int writeSirIntToCTR(String strAddress, int valuseLeng, GDT.Inint[] invalues, int machineID) throws java.rmi.RemoteException {
+    public int writeSirIntToCTR(String strAddress, int valuseLeng, alai.GDT.Inint[] invalues, int machineID) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -876,7 +876,7 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
 }
     }
 
-    public GDT.Resdouble[] getXYZ(int t) throws java.rmi.RemoteException {
+    public alai.GDT.Resdouble[] getXYZ(int t) throws java.rmi.RemoteException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -897,9 +897,9 @@ public class GDStub extends org.apache.axis.client.Stub implements localhost.GD_
         else {
             extractAttachments(_call);
             try {
-                return (GDT.Resdouble[]) _resp;
+                return (alai.GDT.Resdouble[]) _resp;
             } catch (java.lang.Exception _exception) {
-                return (GDT.Resdouble[]) org.apache.axis.utils.JavaUtils.convert(_resp, GDT.Resdouble[].class);
+                return (alai.GDT.Resdouble[]) org.apache.axis.utils.JavaUtils.convert(_resp, alai.GDT.Resdouble[].class);
             }
         }
   } catch (org.apache.axis.AxisFault axisFaultException) {

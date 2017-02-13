@@ -1,15 +1,9 @@
-package znyk.test;
+package alai.znyk.test;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
-import znyk.plc.PLC;
-import znyk.plc._FST;
-import znyk.server.Conn;
-import znyk.server.ConnactionPool;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -18,6 +12,12 @@ import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+
+import alai.znyk.plc.PLC;
+import alai.znyk.plc._FST;
+import alai.znyk.server.Conn;
+import alai.znyk.server.ConnactionPool;
+
 import javax.swing.JCheckBox;
 
 public class Test {

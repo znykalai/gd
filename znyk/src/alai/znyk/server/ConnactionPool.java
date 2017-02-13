@@ -1,4 +1,4 @@
-package znyk.server;
+package alai.znyk.server;
 
 import java.sql.*;
 import java.util.Hashtable;

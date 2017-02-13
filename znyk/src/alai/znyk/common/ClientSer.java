@@ -1,7 +1,8 @@
-package znyk.common;
+package alai.znyk.common;
 
 
 import java.rmi.RemoteException;
+import java.util.Vector;
 
 import javax.xml.rpc.ServiceException;
 import javax.xml.ws.BindingProvider;
@@ -11,10 +12,11 @@ import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 
-import GDT.Resint;
-import localhost.GD_wsdl.GDLocator;
-import localhost.GD_wsdl.GDPortType;
-import znyk.plc.ReST;
+import alai.GDT.Resint;
+import alai.localhost.GD_wsdl.GDLocator;
+import alai.localhost.GD_wsdl.GDPortType;
+import alai.znyk.plc.ReST;
+import alai.znyk.server.SqlTool;
 
 
 
@@ -58,8 +60,22 @@ public class ClientSer {
 	public String getState(int t) throws RemoteException, ServiceException{
 		//return gd.getGD().getState(t);
 		if(t==SqlPro.A区输送线){
-			return "501=1|502=0|503=1|504=0|505=1|506=0|507=1|508=0|"+
-					"509=1|510=0|511=1|512=0|513=1|514=0"
+			String s="501=1|502=0|503=1|504=0|505=1|506=0|507=1|508=0|"+
+					"509=1|510=0|511=1|512=0|513=1|514=0";
+			Vector v=SqlTool.findInVector("select 工位,信号 from 有货信号");
+			String tem="";
+			for(int i=0;i<v.size();i++){
+				
+				Vector row=(Vector)v.get(i);
+				if(i==v.size()-1){
+					tem=tem+row.get(0)+"="+row.get(1);
+				}else{
+				tem=tem+row.get(0)+"="+row.get(1)+"|";}
+			}
+			if(!s.equals(""))
+			s=tem;
+			
+			return s
 		;
 		}
 		if(t==SqlPro.B区输送线){
@@ -69,7 +85,21 @@ public class ClientSer {
 		}
 		
 		if(t==10){
-			return "502=1|504=0|506=1|508=0|510=1|512=0|514=1";
+			String s="502=1|504=0|506=1|508=0|510=1|512=0|514=1";
+			Vector v=SqlTool.findInVector("select 工位,信号 from 到位信号");
+			String tem="";
+			for(int i=0;i<v.size();i++){
+				
+				Vector row=(Vector)v.get(i);
+				if(i==v.size()-1){
+					tem=tem+row.get(0)+"="+row.get(1);
+				}else{
+				tem=tem+row.get(0)+"="+row.get(1)+"|";}
+			}
+			if(!s.equals(""))
+			s=tem;
+			
+			return s;
 		
 		}
 		if(t==11){
@@ -94,7 +124,7 @@ public class ClientSer {
 	public int toBackBuffer(int idEvent, int fromLocID,int toLocID){ 
 		System.out.println("回货");
 		return -1;}
-	public GDT.Resint[] getSirIntValuesFromCTR(String startAddress,int nums,int valueLen,
+	public alai.GDT.Resint[] getSirIntValuesFromCTR(String startAddress,int nums,int valueLen,
           int machineID){
 		
 		return new Resint[]{

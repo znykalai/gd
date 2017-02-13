@@ -1,4 +1,4 @@
-package znyk.test;
+package alai.znyk.test;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -8,11 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import znyk.plc.PLC;
+import alai.znyk.plc.PLC;
+import alai.znyk.plc.STContent;
 
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
-import znyk.plc.STContent;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -145,12 +145,12 @@ public class PLCFrame extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		splitPane.setRightComponent(scrollPane);
-		
+		CommentPanel pann=new CommentPanel();
+		splitPane.setLeftComponent(pann);
 	
 		scrollPane.setViewportView(tabbedPane);
-		
-		JPanel panel_1 = new JPanel();
-		splitPane.setLeftComponent(panel_1);
+		//splitPane.setDividerLocation(100);
+		splitPane.setDividerLocation(0.8);
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

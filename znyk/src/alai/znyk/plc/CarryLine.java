@@ -1,4 +1,4 @@
-package znyk.plc;
+package alai.znyk.plc;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

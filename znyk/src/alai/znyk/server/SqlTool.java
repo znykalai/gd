@@ -1,4 +1,4 @@
-package znyk.server;
+package alai.znyk.server;
 
 
 import java.sql.Connection;
@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
-import znyk.common.SqlPro;
-import znyk.plc.PLC;
+import alai.znyk.common.SqlPro;
+import alai.znyk.plc.PLC;
 
 public class SqlTool {
 	
@@ -578,7 +578,7 @@ public class SqlTool {
 try{
        st=con.createStatement();
        con.setAutoCommit(false);
-       String sql="select 动作,状态,状态2,是否回大库,来源货位号,放回货位号,托盘编号,请求区  from 立库动作指令  where idEvent='"+idEvent+"'";
+       String sql="select 动作,状态,状态2,是否回大库,来源货位号,放回货位号,托盘编号,请求区  from 立库动作指令  where idEvent='"+idEvent+"' and 状态<>'完成'";
        set=st.executeQuery(sql);
        if(set.next()){
     	   String zong=set.getObject(1)+"";String zt1=set.getObject(2)+"";

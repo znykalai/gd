@@ -1,4 +1,4 @@
-package znyk.plc;
+package alai.znyk.plc;
 
 public class _DST extends ST_Father implements STInterface {
 	

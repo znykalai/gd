@@ -1,8 +1,8 @@
-package znyk.plc;
+package alai.znyk.plc;
 
 import java.io.Serializable;
 
-import GDT.Resint;
+import alai.GDT.Resint;
 
 public class ReST implements  Serializable{
 	/**

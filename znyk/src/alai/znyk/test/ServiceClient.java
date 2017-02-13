@@ -1,4 +1,4 @@
-package znyk.test;
+package alai.znyk.test;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 
-import znyk.server.webService.ServiceServer;
+import alai.znyk.server.webService.ServiceServer;
 
 
 

@@ -1,4 +1,4 @@
-package znyk.plc;
+package alai.znyk.plc;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,11 +9,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Vector;
 
-import GDT.Inint;
-import GDT.Resint;
-import localhost.GD_wsdl.GDLocator;
-import znyk.common.ClientSer;
-import znyk.server.SqlTool;
+import alai.GDT.Inint;
+import alai.GDT.Resint;
+import alai.localhost.GD_wsdl.GDLocator;
+import alai.znyk.common.ClientSer;
+import alai.znyk.server.SqlTool;
 
 public class PLC implements Serializable {
 	/**

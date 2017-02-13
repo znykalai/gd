@@ -1,4 +1,4 @@
-package znyk.server.webService;
+package alai.znyk.server.webService;
 
 import java.io.BufferedReader;
 import java.io.File;
