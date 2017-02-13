@@ -1,6 +1,7 @@
 package znyk.test;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -15,6 +16,9 @@ import znyk.plc.STContent;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSplitPane;
+import javax.swing.JScrollPane;
+import javax.swing.JLabel;
 
 public class PLCFrame extends JFrame {
 	static{
@@ -51,11 +55,25 @@ public class PLCFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		JPanel panel_18 = new JPanel();
+		contentPane.add(panel_18, BorderLayout.SOUTH);
+		
+		JButton btnNewButton = new JButton("\u5237\u65B0");
+		panel_18.add(btnNewButton);
+		
+		JButton btnCarry = new JButton("carry");
+		btnCarry.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new CarryFrame().setVisible(true);
+			}
+		});
+		panel_18.add(btnCarry);
+		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		contentPane.add(tabbedPane, BorderLayout.CENTER);
+		tabbedPane.setPreferredSize(new Dimension(1600,780));
 		
 		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
+		tabbedPane.addTab("◊∞≈‰«¯A_plc", null, panel, null);
 		panel.setLayout(null);
 		
 		STPanel panel_3 = new STPanel(PLC.getIntance().ST0_1);
@@ -117,26 +135,22 @@ public class PLCFrame extends JFrame {
 		STPanel panel_17 = new STPanel(PLC.getIntance().ST15_1);
 		panel_17.setBounds(1060, 417, 255, 210);
 		panel.add(panel_17);
-		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		//contentPane.add(tabbedPane, BorderLayout.WEST);
 		
 		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_2, null);
+		tabbedPane.addTab("≤‚ ‘2", null, panel_2, null);
 		
-		JPanel panel_18 = new JPanel();
-		contentPane.add(panel_18, BorderLayout.SOUTH);
+		JSplitPane splitPane = new JSplitPane();
+		contentPane.add(splitPane, BorderLayout.CENTER);
 		
-		JButton btnNewButton = new JButton("\u5237\u65B0");
-		panel_18.add(btnNewButton);
+		JScrollPane scrollPane = new JScrollPane();
+		splitPane.setRightComponent(scrollPane);
 		
-		JButton btnCarry = new JButton("carry");
-		btnCarry.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new CarryFrame().setVisible(true);
-			}
-		});
-		panel_18.add(btnCarry);
+	
+		scrollPane.setViewportView(tabbedPane);
+		
+		JPanel panel_1 = new JPanel();
+		splitPane.setLeftComponent(panel_1);
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

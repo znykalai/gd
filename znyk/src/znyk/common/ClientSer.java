@@ -85,10 +85,15 @@ public class ClientSer {
 		
 	}
 	public int upPallet(int idEvent,int fromID,int toLocID,int machineID){
+		System.out.println("上货");
 		return -1;
 	}
-	public int getPallet(int idEvent,String fromLocID,int toLocID,int machineID){return -1;}
-	public int toBackBuffer(int idEvent, int fromLocID,int toLocID){ return -1;}
+	public int getPallet(int idEvent,String fromLocID,int toLocID,int machineID){
+		System.out.println("下货");
+		return -1;}
+	public int toBackBuffer(int idEvent, int fromLocID,int toLocID){ 
+		System.out.println("回货");
+		return -1;}
 	public GDT.Resint[] getSirIntValuesFromCTR(String startAddress,int nums,int valueLen,
           int machineID){
 		
