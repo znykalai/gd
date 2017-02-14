@@ -69,7 +69,7 @@ public class KuFang {
 			public void run(){
 			try{
 				while(true){
-					//startUpRFFID();
+					startUpRFFID();
 				Thread.sleep(100);
 				
 				}
@@ -370,7 +370,7 @@ public void startlineAGV(){
   //启动升降机的型号检测
   public void startUpRFFID(){
 	  try {
-			String b=ClientSer.getIntance().getState(4);
+			String b=ClientSer.getIntance().getState(SqlPro.来料升);
 			if(b.equals("1")){//升降台上有货物
 			String tp=ClientSer.getIntance().ReadFromRffid("", 1);
 			if(isRffid2.get(tp)!=null)return;

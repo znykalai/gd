@@ -86,8 +86,8 @@ public class SqlTool {
      while(set.next()){
     for(int i=1;i<num+1;i++){
         if(i==1)
-        val=(set.getObject(i)==null?0:set.getObject(i))+"!_!";
-    else val=val+(set.getObject(i)==null?0:set.getObject(i))+"!_!";
+        val=(set.getObject(i)==null||set.getObject(i).equals("")?0:set.getObject(i))+"!_!";
+    else val=val+(set.getObject(i)==null||set.getObject(i).equals("")?0:set.getObject(i))+"!_!";
 
       }
        val=val.substring(0,val.length()-3);
@@ -455,17 +455,18 @@ public class SqlTool {
     	   +wuliao+"' AND 装配区='"+machineID+"' and 数量-IFNULL(完成数量,0)>0 ORDER BY 工单序号,模组序号,分解号,载具序号  LIMIT 2 ";
     	  //1.首先判断当前指令队列有没有需要这个物料的
     	   for(int i=1;i<8;i++){
-    	   String wul1= (machineID.equals(SqlPro.堆垛机1)?PLC.getIntance().STC1.get(i).firstST.get物料编码():
+    	   String wul1= (machineID.equals(SqlPro.堆垛机1+"")?PLC.getIntance().STC1.get(i).firstST.get物料编码():
     		   PLC.getIntance().STC2.get(i).firstST.get物料编码());
-    	   String wul2= (machineID.equals(SqlPro.堆垛机1)?PLC.getIntance().STC1.get(i).secondST.get物料编码():
+    	   String wul2= (machineID.equals(SqlPro.堆垛机1+"")?PLC.getIntance().STC1.get(i).secondST.get物料编码():
     		   PLC.getIntance().STC2.get(i).secondST.get物料编码());
-    	   int sl1=  (machineID.equals(SqlPro.堆垛机1)?PLC.getIntance().STC1.get(i).firstST.get剩余数量():
+    	   int sl1=  (machineID.equals(SqlPro.堆垛机1+"")?PLC.getIntance().STC1.get(i).firstST.get剩余数量():
     		   PLC.getIntance().STC2.get(i).firstST.get剩余数量());
-    	   int sl2= (machineID.equals(SqlPro.堆垛机1)?PLC.getIntance().STC1.get(i).secondST.get剩余数量():
+    	   int sl2= (machineID.equals(SqlPro.堆垛机1+"")?PLC.getIntance().STC1.get(i).secondST.get剩余数量():
     		   PLC.getIntance().STC2.get(i).secondST.get剩余数量());
-    	   
+    	   System.out.println(wuliao+"/"+wul1+"/"+wul2+"/"+sl1+"/"+sl2);
     	   if((wuliao.equals(wul1)&&sl1>0)||(wuliao.equals(wul2)&&sl2>0)){
     		   //查找货位上的
+    		   System.out.println("==========");
     		int huowei= SqlPro.getMap().get(machineID+""+i+"ST");
     	    String sql2= "select  托盘编号   from 货位表  where  货位序号 ='"+huowei+"'";
     	    set=st.executeQuery(sql2);
@@ -591,7 +592,7 @@ try{
     	  
     		   set=st.executeQuery("select 托盘编号 from 库存托盘  where 托盘编号="+"'"+tp+"'");   
     		   if(set.next()){
-    			   st.executeUpdate("update 库存托盘  set 货位号='"+toID+"' ,方向='"+qu+"' where 托盘编号='"+tp+"'");  
+    			   st.executeUpdate("update 库存托盘  set 货位号='"+toID+"',方向='"+qu+"' where 托盘编号='"+tp+"'");  
     		   }else{
     			   String sba[]=getWuliaoFromLK(tp).split("!_!");
     			   
@@ -633,7 +634,8 @@ try{
     	   if(zong.equals("输送线回流")){
     		 //1.第一步更新库存托盘表
          	  
-    		   st.executeUpdate("update 库存托盘  set 货位号='"+toID+"' ,方向='"+qu+"' where 托盘编号='"+tp+"'");
+    		  // st.executeUpdate("update 库存托盘  set 货位号='"+toID+"' ,方向='"+qu+"' where 托盘编号='"+tp+"'");
+    		   st.executeUpdate("update 库存托盘  set 货位号=NULL  where 托盘编号='"+tp+"'");
     		   //2.第二步更新货位表
     		   st.executeUpdate("update 货位表     set 托盘编号=NULL,堆垛机=NULL where 货位序号="+"'"+fromID+"'");
     		   if(!toID.equals("60002"))
@@ -681,9 +683,10 @@ try{
    }
    
    //通知升降台，可以升起向大库送货
+ 
    public static String informToDK(String tp,String wuliao,int shuliang){
 	   
-	   return "wuliao!_!数量";
+	   return "";
    }
    
    //当去料升降台有信号时调用这个方法
@@ -694,7 +697,7 @@ try{
        ResultSet set=null;
       Statement st=null;
       Connection con=conn.getCon();
-      String back="为处理!_!-1";
+      String back="未处理!_!-1";
  try{
         st=con.createStatement();
         con.setAutoCommit(false);
@@ -720,14 +723,14 @@ try{
         	 informToDK(tp,wuliao,shul);
         	//4.如果去了升降机想大库送货失败怎办
         	
-        	 back="为处理!_!100000";
+        	 back="成功处理!_!100000";
         }
          else{
         	//上货架
         	 set=st.executeQuery("select 物料,方向  from 库存托盘  where 托盘编号="+"'"+tp+"'"); 	
         	 if(set.next()){
         		 Object wul=set.getObject(1);
-        		 back =autoUpPallet( tp,wul+"","60002",set.getObject(1)+"");
+        		 back =autoUpPallet( tp,wul+"","60002",set.getObject(2)+"");
         		 
         	 }
         	 

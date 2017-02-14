@@ -11,6 +11,15 @@ public class _1_6ST extends ST_Father implements STInterface {
 	private int 模组类型标志;//D10008
 	private int 需求数量;//D100033
 	private int 完成数量;
+    protected  String 物料编码="";
+	
+	public String get物料编码() {
+		return 物料编码;
+	}
+	public void set物料编码(String 物料编码) {
+		System.out.println(物料编码+"2-------------");
+		this.物料编码 = 物料编码;
+	}
 	
 	public int get完成数量() {
 		return 完成数量;
@@ -98,7 +107,7 @@ public class _1_6ST extends ST_Father implements STInterface {
 		     立库RDY=((_1_6ST)st).is立库RDY();
 		     数据更新完成=((_1_6ST)st).is数据更新完成();
 		     完成数量=((_1_6ST)st).get完成数量();
-		     物料编码=st.物料编码;
+		     物料编码=((_1_6ST)st).get物料编码();
 	 }
 	 
 	 @Override

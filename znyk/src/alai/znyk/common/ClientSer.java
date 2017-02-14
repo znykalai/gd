@@ -56,7 +56,8 @@ public class ClientSer {
 	public GDPortType getGD() throws Exception{
 		return gd.getGD();
 	}
-	
+	public static String rffid1="0";
+	public static String rffid2="0";
 	public String getState(int t) throws RemoteException, ServiceException{
 		//return gd.getGD().getState(t);
 		if(t==SqlPro.A区输送线){
@@ -107,12 +108,15 @@ public class ClientSer {
 			return "602=1|604=0|606=1|608=0|610=1|612=0|614=1";
 		
 		}
+		
+		if(t==SqlPro.来料升){return rffid1;}
+		if(t==SqlPro.去料升){return rffid2;}
 		return "1";
 	}
-	
+	  public static String TP="1";
 	public String ReadFromRffid(String message,int id) throws RemoteException, ServiceException{
 		//return gd.getGD().readFromRffid(message, id);
-		return "1";
+		return TP;
 		
 	}
 	public int upPallet(int idEvent,int fromID,int toLocID,int machineID){

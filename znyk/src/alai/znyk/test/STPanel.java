@@ -44,10 +44,16 @@ public class STPanel extends JPanel {
 				  if(aValue instanceof Boolean){
 			Method m=	ST.firstST.getClass().getMethod("set"+name, boolean.class) ;
 			m.invoke(ST.firstST, aValue);}
-				  else{
+				  if(aValue instanceof Integer){
+					 
 					Method m=	ST.firstST.getClass().getMethod("set"+name, int.class) ;
 					m.invoke(ST.firstST, aValue);
 				  }	
+				  if(aValue instanceof String){
+						 
+						Method m=	ST.firstST.getClass().getMethod("set"+name, String.class) ;
+						m.invoke(ST.firstST, aValue);
+					  }	
 				
 			}else{
 				
@@ -73,12 +79,18 @@ public class STPanel extends JPanel {
 					  if(aValue instanceof Boolean){
 				Method m=	ST.secondST.getClass().getMethod("set"+name, boolean.class) ;
 				m.invoke(ST.secondST, aValue);}
-					  else{
+					  if(aValue instanceof Integer){
 						Method m=	ST.secondST.getClass().getMethod("set"+name, int.class) ;
 						m.invoke(ST.secondST, aValue);
 						
 					
 				}
+			       if(aValue instanceof String){
+							Method m=	ST.secondST.getClass().getMethod("set"+name, String.class) ;
+							m.invoke(ST.secondST, aValue);
+							
+						
+					}
 				
 					  }catch(Exception ex){ex.printStackTrace();}
 			}

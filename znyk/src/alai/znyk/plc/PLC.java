@@ -2,6 +2,7 @@ package alai.znyk.plc;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -177,6 +178,8 @@ public class PLC implements Serializable {
 		  PLC pp=readO();
 		  if(pp!=null){
 			  INSTANCE=pp;
+			// String ss= INSTANCE.STC1.get(3).firstST.getŒÔ¡œ±‡¬Î();
+			// System.out.println(ss);
 		      STC1=INSTANCE.STC1;
 			  line=INSTANCE.line;
 			  STC2=INSTANCE.STC2;
@@ -318,14 +321,16 @@ public class PLC implements Serializable {
 		
 	}
 	
-	public PLC readO(){
-		
+	public PLC readO() {
+		ObjectInputStream in=null;
          try{
-		  ObjectInputStream in = new ObjectInputStream(new FileInputStream("D:\\PLC.obj"));
+		 in = new ObjectInputStream(new FileInputStream("D:\\PLC.obj"));
 		  PLC plc=  (PLC)in.readObject();
 		  in.close();
 		  return plc;
 	     }catch(Exception e){
+	    	 try{
+	    	 if(in!=null)in.close();}catch(Exception exx){}
 	    	 e.printStackTrace();
 	    	 return null;}
 	}

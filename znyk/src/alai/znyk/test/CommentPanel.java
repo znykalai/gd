@@ -2,12 +2,14 @@ package alai.znyk.test;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import alai.znyk.common.ClientSer;
 import alai.znyk.common.SqlPro;
 import alai.znyk.kufang.KuFang;
 import alai.znyk.server.SqlTool;
@@ -19,6 +21,10 @@ import java.lang.reflect.Method;
 import java.util.Vector;
 
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CommentPanel extends JPanel {
 	private JTextField textField;
@@ -101,6 +107,7 @@ public class CommentPanel extends JPanel {
 			 public void setValueAt(Object aValue, int row, int column) {
 									}
 	 };
+    private JTextField textField_12;
 	 
 	/**
 	 * Create the panel.
@@ -132,7 +139,7 @@ public class CommentPanel extends JPanel {
 		setLayout(null);
 		
 		JLabel label = new JLabel("\u4E0A\u6599\u5347\u964D\u53F0");
-		label.setBounds(0, 28, 75, 15);
+		label.setBounds(0, 10, 75, 15);
 		add(label);
 		
 		textField = new JTextField();
@@ -163,11 +170,21 @@ public class CommentPanel extends JPanel {
 		add(label_3);
 		
 		JButton btnNewButton = new JButton("\u53D1\u9001");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!textField.getText().equals("")&&!textField_1.getText().equals("")){
+				ClientSer.TP=textField.getText();	
+				SqlTool.fromDKisTP=textField_1.getText()+"!_!"+2;
+				ClientSer.rffid1=textField_2.getText().equals("")?"0":"1";
+				
+				}
+			}
+		});
 		btnNewButton.setBounds(347, 24, 93, 23);
 		add(btnNewButton);
 		
 		JLabel label_4 = new JLabel("\u4E0B\u6599\u5347\u964D\u53F0");
-		label_4.setBounds(0, 71, 75, 15);
+		label_4.setBounds(0, 53, 75, 15);
 		add(label_4);
 		
 		JLabel label_5 = new JLabel("\u6258\u76D8\u53F7");
@@ -189,11 +206,20 @@ public class CommentPanel extends JPanel {
 		add(textField_4);
 		
 		JButton button = new JButton("\u53D1\u9001");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!textField_3.getText().equals("")){
+					 ClientSer.TP=textField_3.getText();
+					 ClientSer.rffid2=textField_4.getText().equals("")?"0":"1";
+					
+					}
+			}
+		});
 		button.setBounds(347, 66, 93, 23);
 		add(button);
 		
 		JLabel label_7 = new JLabel("\u4E0A\u8D27");
-		label_7.setBounds(0, 109, 75, 15);
+		label_7.setBounds(0, 98, 75, 15);
 		add(label_7);
 		
 		JLabel label_8 = new JLabel("\u4ECE");
@@ -215,11 +241,28 @@ public class CommentPanel extends JPanel {
 		add(textField_6);
 		
 		JButton button_1 = new JButton("\u53D1\u9001");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String fID=textField_5.getText();
+				String tID=textField_6.getText();
+				if(!fID.equals("")&&!tID.equals("")){
+					String tp=SqlTool.findOneRecord("select 托盘编号 from 货位表  where 货位序号='"+fID+"'");
+					if(!tp.equals("0")){
+						String back=SqlTool.add动作指令(tp,fID, tID, "上货", 0, "1")	;
+						System.out.println(back);
+						JOptionPane.showConfirmDialog(null, back);
+					}
+					
+				}
+				
+				
+			}
+		});
 		button_1.setBounds(347, 111, 93, 23);
 		add(button_1);
 		
 		JLabel label_10 = new JLabel("\u4E0B\u8D27");
-		label_10.setBounds(0, 146, 75, 15);
+		label_10.setBounds(0, 153, 75, 15);
 		add(label_10);
 		
 		JLabel label_11 = new JLabel("\u4ECE");
@@ -241,6 +284,21 @@ public class CommentPanel extends JPanel {
 		add(textField_8);
 		
 		JButton button_2 = new JButton("\u53D1\u9001");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String fID=textField_7.getText();
+				String tID=textField_8.getText();
+				if(!fID.equals("")&&!tID.equals("")){
+					String tp=SqlTool.findOneRecord("select 托盘编号 from 货位表  where 货位序号='"+fID+"'");
+					if(!tp.equals("0")){
+						String back=SqlTool.add动作指令(tp,fID, tID, "下货", 0, "1")	;
+						System.out.println(back);
+						JOptionPane.showConfirmDialog(null, back);
+					}
+					
+				}
+			}
+		});
 		button_2.setBounds(347, 148, 93, 23);
 		add(button_2);
 		
@@ -262,11 +320,27 @@ public class CommentPanel extends JPanel {
 		add(label_15);
 		
 		textField_10 = new JTextField();
+		textField_10.setEnabled(false);
 		textField_10.setColumns(10);
 		textField_10.setBounds(181, 187, 75, 21);
 		add(textField_10);
 		
 		JButton button_3 = new JButton("\u53D1\u9001");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String fID=textField_9.getText();
+				String ishui=textField_11.getText().equals("")?"0":"1";
+				if(!fID.equals("")){
+					String tp=SqlTool.findOneRecord("select 托盘编号 from 货位表  where 货位序号='"+fID+"'");
+					if(!tp.equals("0")){
+						String back=SqlTool.add动作指令(tp,fID, "60002", "输送线回流", Integer.parseInt(ishui), "1")	;
+						System.out.println(back);
+						JOptionPane.showConfirmDialog(null, back);
+					}
+					
+				}
+			}
+		});
 		button_3.setBounds(347, 185, 93, 23);
 		add(button_3);
 		
@@ -293,6 +367,17 @@ public class CommentPanel extends JPanel {
 		add(scrollPane_1);
 		
 		table_1 = new JTable();
+		table_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try{
+					int row=table_1.getSelectedRow();
+					Object tp=table_1.getValueAt(row, 0);
+					textField_12.setText(tp.toString());
+					
+				}catch(Exception ex){}
+			}
+		});
 		scrollPane_1.setViewportView(table_1);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
@@ -324,7 +409,76 @@ public class CommentPanel extends JPanel {
 		table_3.setModel(mode3);
 		table_4.setModel(mode4);
 		
-		this.setPreferredSize(new Dimension(671, 560));
+		this.setPreferredSize(new Dimension(671, 577));
+		
+		textField_12 = new JTextField();
+		textField_12.setBounds(0, 549, 64, 21);
+		add(textField_12);
+		textField_12.setColumns(10);
+		
+		JButton button_4 = new JButton("\u5220\u9664");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String tp=textField_12.getText();
+				String huowei=SqlTool.findOneRecord("select 货位号 from 库存托盘  where 托盘编号='"+tp+"'");
+				if(!huowei.equals("0")){
+					String sql1="DELETE FROM 库存托盘  where 托盘编号='"+tp+"'";
+					String sql2="UPDATE 货位表  SET 托盘编号=NULL   where 托盘编号='"+tp+"'";
+					SqlTool.insert(new String[]{sql1,sql2});
+					refsh();
+					textField_12.setText("");
+					
+				}
+			}
+		});
+		button_4.setBounds(78, 548, 93, 23);
+		add(button_4);
+		
+		JButton button_5 = new JButton("\u5237\u65B0");
+		button_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refsh();
+			}
+		});
+		button_5.setBounds(347, 548, 93, 23);
+		add(button_5);
+		
+		JLabel label_17 = new JLabel("\u4E0A\u6599");
+		label_17.setBounds(0, 28, 75, 15);
+		add(label_17);
+		
+		JLabel label_18 = new JLabel("\u56DE\u5E93/\u56DE\u5927\u5E93");
+		label_18.setBounds(0, 71, 86, 15);
+		add(label_18);
+		
+		JLabel label_19 = new JLabel("\u5DE6/\u53F3\u5347\u964D\u53F0");
+		label_19.setBounds(0, 116, 93, 15);
+		add(label_19);
+		
+		new Thread(){
+			public void run(){
+				while(true){
+					try{
+					//	refsh();
+						Thread.sleep(5000);
+						
+					}catch(Exception ex){}
+					
+				}
+				
+			}
+			
+		}.start();
 
+	}
+	
+	public void refsh(){
+		Vector v3=SqlTool.findInVector("select idEvent,动作,托盘编号,来源货位号,放回货位号,状态,状态2,是否回大库,空  from 立库动作指令  order by idEvent");
+		modezl.setDataVector(v3, zl);
+		Vector v4=SqlTool.findInVector("select 托盘编号,物料,数量,货位号,方向  from 库存托盘  order by 托盘编号");
+		modeTP.setDataVector(v4, TP);
+		Vector v5=SqlTool.findInVector("select 货位序号,托盘编号   from 货位表  order by 距离");
+		modeKF.setDataVector(v5, KF);
+		
 	}
 }

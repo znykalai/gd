@@ -23,6 +23,7 @@ public class STContent implements Serializable {
     	this.plc=plc;
        }
     public void update标志(ST_Father st,int mode){
+    	//System.out.println("update-----");
     	if(mode==1){//更新 前升读标志
     	 String sql="update 配方指令队列  set 前升读标志=1 where 工单ID="+"'"+st.get工单ID()+"' and 分解号="+st.get分解号()+" and 模组序ID="+st.get模组序ID()+" and 载具序号="+st.get载具序号()+" and 装配区="+st.machineID;
     	 System.out.println(sql);
@@ -37,6 +38,7 @@ public class STContent implements Serializable {
    
   
     public void initFromSql(){
+    	
     	if(plc.stop1){//不再重数据库里面读数了，单是不影响搬运机构的继续执行
     		if(装配区==1){
     			if(stNum==1){ 
@@ -221,7 +223,7 @@ public class STContent implements Serializable {
     	    	 		 ((_1_6ST)firstST).set载具序号((int)row.get(3));
     	    	 		 ((_1_6ST)firstST).set允许工位动作标志(false);
     	    	 		 ((_1_6ST)firstST).set投放型腔标志(false);//根据
-    	    	 		 System.out.println(row.get(10).getClass());
+    	    	 		// System.out.println(row.get(10).getClass());
     	    	 		 ((_1_6ST)firstST).set模组类型标志((int)row.get(10));
     	    	 		 
     	    	 		 ((_1_6ST)firstST).set电芯类型标志((int)row.get(11));
@@ -247,7 +249,7 @@ public class STContent implements Serializable {
     	    	 		 ((_1_6ST)secondST).set立库RDY(plc.getSTRdy(装配区,stNum));
     	    	 		 secondST.set工单ID((int)row2.get(12));
     	    	 		 secondST.set模组序ID((int)row2.get(13));
-    	    	 		 secondST.set物料编码((String)row.get(6));
+    	    	 		 secondST.set物料编码((String)row2.get(6));
     	    	 		 secondST.setWrite(true);
     	    	 		 update标志(secondST,2);
     	    	 		 
@@ -267,7 +269,7 @@ public class STContent implements Serializable {
     	    	 		 ((_1_6ST)firstST).set立库RDY(plc.getSTRdy(装配区,stNum));
     	    	 		firstST.set工单ID((int)row.get(12));
     	    	 		firstST.set模组序ID((int)row.get(13));
-    	    	 		secondST.set物料编码((String)row.get(6));
+    	    	 		firstST.set物料编码((String)row.get(6));
     	    	 		firstST.setWrite(true);
     	    	 		  update标志(firstST,2);
     	    	 		}
@@ -355,7 +357,7 @@ public class STContent implements Serializable {
      	    	 		 ((_7ST)secondST).set立库RDY(plc.getSTRdy(装配区,stNum));
      	    	 		 secondST.set工单ID((int)row2.get(14));
      	    	 		 secondST.set模组序ID((int)row2.get(15));
-     	    	 		 secondST.set物料编码((String)row.get(6));
+     	    	 		 secondST.set物料编码((String)row2.get(6));
      	    	 		 secondST.setWrite(true);
      	    	 		 update标志(secondST,2);
      	    	 		 
